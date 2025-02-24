@@ -1,0 +1,41 @@
+# Torres de abosrcion 2
+
+# -----------------------------------------------------------
+# Autor: José Juan Torres Martínez
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# -----------------------------------------------------------
+
+# Problema de Torres de Absorción
+# Se utiliza un absorbedor para eliminar el gas portador oxígeno de una corriente que contiene acetona.
+# La alimentación tiene una fracción molar de acetona de 0.15 y una velocidad de 500 lb/h.
+# El líquido absorbente es metanol a una velocidad de 2000 lb/h.
+# La corriente de gas de salida tiene 1.2% en fracción molar de acetona y 4.5% de vapor de metanol.
+# Se pide determinar la fracción molar de acetona en la corriente inferior y la cantidad total de acetona absorbida por hora.
+
+# 1. Definir datos iniciales
+fraccion_entrada_acetona <- 0.15  # Fracción molar de acetona en la alimentación
+flujo_gas_entrada <- 500  # lb/h, velocidad de alimentación de gas
+flujo_liquido <- 2000  # lb/h, velocidad de metanol absorbente
+fraccion_salida_acetona <- 0.012  # Fracción molar de acetona en el gas de salida
+fraccion_salida_vapor_metanol <- 0.045  # Fracción molar de vapor de metanol en el gas de salida
+
+# 2. Calcular el flujo molar de acetona en la alimentación
+flujo_acetona_entrada <- flujo_gas_entrada * fraccion_entrada_acetona
+print(paste("Flujo Molar de Acetona en la Alimentación:", flujo_acetona_entrada, "lb-mol/h"))
+
+# 3. Calcular el flujo molar de gas de salida
+flujo_gas_salida <- flujo_gas_entrada * (1 - fraccion_entrada_acetona)
+print(paste("Flujo Molar de Gas de Salida:", flujo_gas_salida, "lb-mol/h"))
+
+# 4. Calcular el flujo molar de acetona en el gas de salida
+flujo_acetona_salida <- flujo_gas_salida * fraccion_salida_acetona
+print(paste("Flujo Molar de Acetona en el Gas de Salida:", flujo_acetona_salida, "lb-mol/h"))
+
+# 5. Calcular el flujo molar de acetona absorbida
+flujo_acetona_absorbida <- flujo_acetona_entrada - flujo_acetona_salida
+print(paste("Cantidad de Acetona Absorbida:", flujo_acetona_absorbida, "lb-mol/h"))
+
+# 6. Calcular la fracción molar de acetona en la corriente inferior
+fraccion_acetona_inferior <- flujo_acetona_absorbida / (flujo_liquido + flujo_acetona_absorbida)
+print(paste("Fracción Molar de Acetona en la Corriente Inferior:", round(fraccion_acetona_inferior, 4)))
