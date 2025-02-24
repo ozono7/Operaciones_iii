@@ -1,0 +1,41 @@
+# Torres de absorcion 3
+
+# -----------------------------------------------------------
+# Autor: José Juan Torres Martínez
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# -----------------------------------------------------------
+
+# Problema de Torres de Absorción
+# Se utiliza un absorbedor para eliminar el gas portador nitrógeno de una corriente que contiene benceno.
+# La alimentación tiene una fracción molar de benceno de 0.20 y una velocidad de 600 kg/h.
+# El líquido absorbente es tolueno a una velocidad de 2500 kg/h.
+# La corriente de gas de salida tiene 2.5% en fracción molar de benceno y 3.0% de vapor de tolueno.
+# Se pide determinar la fracción molar de benceno en la corriente inferior y la cantidad total de benceno absorbida por hora.
+
+# 1. Definir datos iniciales
+fraccion_entrada_benceno <- 0.20  # Fracción molar de benceno en la alimentación
+flujo_gas_entrada <- 600  # kg/h, velocidad de alimentación de gas
+flujo_liquido <- 2500  # kg/h, velocidad de tolueno absorbente
+fraccion_salida_benceno <- 0.025  # Fracción molar de benceno en el gas de salida
+fraccion_salida_vapor_tolueno <- 0.03  # Fracción molar de vapor de tolueno en el gas de salida
+
+# 2. Calcular el flujo molar de benceno en la alimentación
+flujo_benceno_entrada <- flujo_gas_entrada * fraccion_entrada_benceno
+print(paste("Flujo Molar de Benceno en la Alimentación:", flujo_benceno_entrada, "kg-mol/h"))
+
+# 3. Calcular el flujo molar de gas de salida
+flujo_gas_salida <- flujo_gas_entrada * (1 - fraccion_entrada_benceno)
+print(paste("Flujo Molar de Gas de Salida:", flujo_gas_salida, "kg-mol/h"))
+
+# 4. Calcular el flujo molar de benceno en el gas de salida
+flujo_benceno_salida <- flujo_gas_salida * fraccion_salida_benceno
+print(paste("Flujo Molar de Benceno en el Gas de Salida:", flujo_benceno_salida, "kg-mol/h"))
+
+# 5. Calcular el flujo molar de benceno absorbido
+flujo_benceno_absorbido <- flujo_benceno_entrada - flujo_benceno_salida
+print(paste("Cantidad de Benceno Absorbida:", flujo_benceno_absorbido, "kg-mol/h"))
+
+# 6. Calcular la fracción molar de benceno en la corriente inferior
+fraccion_benceno_inferior <- flujo_benceno_absorbido / (flujo_liquido + flujo_benceno_absorbido)
+print(paste("Fracción Molar de Benceno en la Corriente Inferior:", round(fraccion_benceno_inferior, 4)))
