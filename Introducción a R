@@ -1,0 +1,70 @@
+# Introducción a R - Conceptos Básicos
+# -----------------------------------------------------------
+# José Juan Torres Martínez
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# -----------------------------------------------------------
+
+# Comentarios en R se escriben con #
+
+# Asignación de variables
+x <- 10   # Asignamos el valor 10 a la variable x
+y <- 5    # Asignamos el valor 5 a la variable y
+
+# Operaciones básicas
+suma <- x + y   # Suma
+diferencia <- x - y  # Resta
+producto <- x * y  # Multiplicación
+division <- x / y  # División
+
+# Imprimir valores en consola
+print(suma)  # Muestra el resultado de la suma
+print(diferencia)
+print(producto)
+print(division)
+
+# Vectores en R
+vector_numeros <- c(1, 2, 3, 4, 5)  # Crear un vector
+print(vector_numeros)
+
+# Acceder a elementos del vector
+print(vector_numeros[1])  # Primer elemento
+print(vector_numeros[3])  # Tercer elemento
+
+# Crear una secuencia de números
+del_1_al_10 <- 1:10  # Secuencia del 1 al 10
+print(del_1_al_10)
+
+# Funciones en R
+elevado_al_cuadrado <- function(numero) {
+  return(numero^2)
+}
+
+resultado <- elevado_al_cuadrado(4)  # Llamamos la función con el número 4
+print(resultado)
+
+
+# ---- Ejercicios de conversión de unidades y humedad ----
+
+# 1. Convertir temperatura de Celsius a Kelvin
+celsius_a_kelvin <- function(celsius) {
+  return(celsius + 273.15)
+}
+print(celsius_a_kelvin(25))  # Convertimos 25°C a Kelvin
+
+# 2. Cálculo de humedad absoluta (aproximación simple)
+humedad_absoluta <- function(presion_vapor, temperatura) {
+  return((217 * presion_vapor) / (temperatura + 273.15))
+}
+print(humedad_absoluta(2.3, 25))  # Ejemplo con P_v = 2.3 kPa y T = 25°C
+
+# 3. Conversión de presión de kPa a atm
+kpa_a_atm <- function(presion_kpa) {
+  return(presion_kpa / 101.325)
+}
+print(kpa_a_atm(101.325))  # 1 atm en kPa
+
+# 4. Calcular la humedad relativa (HR en porcentaje)
+humedad_relativa <- function(presion_vapor, presion_saturacion) {
+  return((presion_vapor / presion_saturacion) * 100)
+}
+print(humedad_relativa(2.3, 3.1))  # Ejemplo con valores en kPa
