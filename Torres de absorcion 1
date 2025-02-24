@@ -1,0 +1,40 @@
+# Torres de absorcion 1
+# -----------------------------------------------------------
+# Autor: José Juan Torres Martínez
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# -----------------------------------------------------------
+
+# Problema de Torres de Absorción
+# Se utiliza un absorbedor para eliminar el gas portador nitrógeno.
+# La alimentación tiene una fracción de peso de acetona de 0.213 y una velocidad de 200 kg/h.
+# El líquido absorbente es agua a una velocidad de 1000 kg/h.
+# La corriente de gas de salida tiene 0.8% en peso de acetona y 2.9% de vapor de agua.
+# Se pide determinar la fracción de masa de acetona en la corriente inferior.
+
+# 1. Definir datos iniciales
+fraccion_entrada_acetona <- 0.213  # Fracción de peso de acetona en la alimentación
+flujo_gas_entrada <- 200  # kg/h, velocidad de alimentación de gas
+flujo_liquido <- 1000  # kg/h, velocidad de agua absorbente
+fraccion_salida_acetona <- 0.008  # Fracción de peso de acetona en el gas de salida
+fraccion_salida_vapor_agua <- 0.029  # Fracción de vapor de agua en el gas de salida
+
+# 2. Calcular el flujo de acetona en la alimentación
+flujo_acetona_entrada <- flujo_gas_entrada * fraccion_entrada_acetona
+print(paste("Flujo de Acetona en la Alimentación:", flujo_acetona_entrada, "kg/h"))
+
+# 3. Calcular el flujo de gas de salida
+flujo_gas_salida <- flujo_gas_entrada * (1 - fraccion_entrada_acetona)
+print(paste("Flujo de Gas de Salida:", flujo_gas_salida, "kg/h"))
+
+# 4. Calcular el flujo de acetona en el gas de salida
+flujo_acetona_salida <- flujo_gas_salida * fraccion_salida_acetona
+print(paste("Flujo de Acetona en el Gas de Salida:", flujo_acetona_salida, "kg/h"))
+
+# 5. Calcular el flujo de acetona en la corriente inferior
+flujo_acetona_corriente_inferior <- flujo_acetona_entrada - flujo_acetona_salida
+print(paste("Flujo de Acetona en la Corriente Inferior:", flujo_acetona_corriente_inferior, "kg/h"))
+
+# 6. Calcular la fracción de masa de acetona en la corriente inferior
+fraccion_acetona_inferior <- flujo_acetona_corriente_inferior / (flujo_liquido + flujo_acetona_corriente_inferior)
+print(paste("Fracción de Masa de Acetona en la Corriente Inferior:", round(fraccion_acetona_inferior, 4)))
