@@ -15,20 +15,19 @@ recuperacion_amoniaco <- 0.95  # Se desea recuperar el 95% del amoniaco
 moles_amoniaco_inicial <- alimento_total * fraccion_amoniaco  # moles de amoniaco iniciales
 moles_amoniaco_final <- moles_amoniaco_inicial * (1 - recuperacion_amoniaco)  # moles de amoniaco restantes
 
-# 2. Función para calcular la cantidad mínima de agua
-calcular_agua_minima <- function(temperatura, presion) {
-  # Constantes de equilibrio para el NH3 en agua (aproximadas):
-  # Henry's Law Constants (mol/L*atm)
-  # A 0°C y 1 atm: 58.0
-  # A 20°C y 1 atm: 57.0
-  # A 20°C y 2 atm: 57.0 / 2
-  if (temperatura == 0 && presion == 1) {
-    H <- 58.0
-  } else if (temperatura == 20 && presion == 1) {
-    H <- 57.0
-  } else if (temperatura == 20 && presion == 2) {
-    H <- 57.0 / 2
-  } else {
+# 2. Tabla de constantes de Henry aproximadas (mol/L*atm)
+constantes_Henry <- data.frame(
+  temperatura = c(0, 20, 20),
+  presion = c(1, 1, 2),
+  H = c(58.0, 57.0, 57.0 / 2)
+)
+
+# 3. Función para calcular la cantidad mínima de agua
+determinar_agua_minima <- function(temperatura, presion) {
+  # Buscar la constante de Henry correspondiente
+  H <- constantes_Henry$H[constantes_Henry$temperatura == temperatura & constantes_Henry$presion == presion]
+  
+  if (length(H) == 0) {
     stop("Condiciones no definidas")
   }
   
@@ -37,13 +36,20 @@ calcular_agua_minima <- function(temperatura, presion) {
   return(agua_minima)
 }
 
-# 3. Cálculos para las tres condiciones
-agua_0C_1atm <- calcular_agua_minima(0, 1)
-agua_20C_1atm <- calcular_agua_minima(20, 1)
-agua_20C_2atm <- calcular_agua_minima(20, 2)
+# 4. Cálculos para las tres condiciones
+agua_0C_1atm <- determinar_agua_minima(0, 1)
+agua_20C_1atm <- determinar_agua_minima(20, 1)
+agua_20C_2atm <- determinar_agua_minima(20, 2)
 
-# 4. Resultados
-cat("Cantidad mínima de agua a emplear:\n")
-cat("a) A 0°C y 1 atm:", round(agua_0C_1atm, 2), "moles\n")
-cat("b) A 20°C y 1 atm:", round(agua_20C_1atm, 2), "moles\n")
-cat("c) A 20°C y 2 atm:", round(agua_20C_2atm, 2), "moles\n")
+# 5. Resultados
+cat("Cantidad mínima de agua a emplear:")
+cat("\na) A 0°C y 1 atm:", round(agua_0C_1atm, 2), "moles")
+cat("\nb) A 20°C y 1 atm:", round(agua_20C_1atm, 2), "moles")
+cat("\nc) A 20°C y 2 atm:", round(agua_20C_2atm, 2), "moles")
+
+# Explicación de elementos nuevos en el código:
+# - `data.frame()`: Se usa para organizar datos en forma de tabla, en este caso las constantes de Henry.
+# - `length(H) == 0`: Verifica si la búsqueda de la constante de Henry resultó en un valor válido.
+# - `stop()`: Detiene la ejecución del código si las condiciones no están definidas.
+# - `cat()`: Imprime múltiples líneas de texto de manera más ordenada.
+# - `round()`: Redondea los valores numéricos para mejor presentación en pantalla.
