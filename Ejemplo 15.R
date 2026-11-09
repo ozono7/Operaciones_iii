@@ -1,11 +1,14 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
-
-# Tema: Lixiviación en la Industria Minera  
-# Problema: Extracción de sulfato de cobre (SO₄Cu) a partir de un mineral de cobre  
+# ==========================================================================
+# Lixiviación en la Industria Minera
+# ==========================================================================
+# Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Material académico para estudiantes
+#
+# Descripción: Extracción de sulfato de cobre (SO₄Cu) a partir de un mineral de cobre
+# ==========================================================================
 
 # Datos del problema  
 masa_mineral <- 500  # Masa del mineral (kg)  

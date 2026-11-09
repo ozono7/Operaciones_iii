@@ -1,6 +1,15 @@
+# ==========================================================================
 # Diseño de una torre de absorción y el cálculo del número de etapas usando el método de McCabe-Thiele
+# ==========================================================================
+# Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Material académico para estudiantes
+#
+# Descripción: Diseño de una torre de absorción y el cálculo del número de etapas usando el método de McCabe-Thiele.
+# ==========================================================================
 
-# Cargar librería
 library(ggplot2)  # Para crear gráficos
 
 # ---------------------- Datos del problema ----------------------

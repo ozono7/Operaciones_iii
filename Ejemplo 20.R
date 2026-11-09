@@ -1,11 +1,14 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
-
-# Tema: Cristalización en la Industria Química  
-# Problema: Cristalización de sulfato de sodio (Na₂SO₄) a partir de una solución  
+# ==========================================================================
+# Cristalización en la Industria Química
+# ==========================================================================
+# Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Material académico para estudiantes
+#
+# Descripción: Cristalización de sulfato de sodio (Na₂SO₄) a partir de una solución
+# ==========================================================================
 
 # Datos del problema  
 volumen_solucion <- 5000  # Volumen de la solución (L)  

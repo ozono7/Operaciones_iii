@@ -1,17 +1,14 @@
-# Torres de absorcion 3
-
-# -----------------------------------------------------------
+# ==========================================================================
+# Torres de absorción 3
+# ==========================================================================
 # Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
 # Doctorado en Ciencias en Bioprocesos
 # Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
-# -----------------------------------------------------------
-
-# Problema de Torres de Absorción
-# Se utiliza un absorbedor para eliminar el gas portador nitrógeno de una corriente que contiene benceno.
-# La alimentación tiene una fracción molar de benceno de 0.20 y una velocidad de 600 kg/h.
-# El líquido absorbente es tolueno a una velocidad de 2500 kg/h.
-# La corriente de gas de salida tiene 2.5% en fracción molar de benceno y 3.0% de vapor de tolueno.
-# Se pide determinar la fracción molar de benceno en la corriente inferior y la cantidad total de benceno absorbida por hora.
+# Material académico para estudiantes
+#
+# Descripción: Problema de torres de absorción: eliminación de nitrógeno de una corriente que contiene benceno.
+# ==========================================================================
 
 # 1. Definir datos iniciales
 fraccion_entrada_benceno <- 0.20  # Fracción molar de benceno en la alimentación

@@ -1,12 +1,14 @@
-
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
-
-# Tema: Simulación de Cromatografía de Intercambio Iónico  
-# Objetivo: Separar y analizar dos proteínas (Quimasa y Lactoperoxidasa)  
+# ==========================================================================
+# Simulación de Cromatografía de Intercambio Iónico
+# ==========================================================================
+# Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
+# Doctorado en Ciencias en Bioprocesos
+# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Material académico para estudiantes
+#
+# Descripción: Separar y analizar dos proteínas (Quimasa y Lactoperoxidasa)
+# ==========================================================================
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

@@ -1,8 +1,14 @@
-# -----------------------------------------------------------
+# ==========================================================================
+# Carta psicrométrica en R
+# ==========================================================================
 # Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
 # Doctorado en Ciencias en Bioprocesos
 # Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
-# -----------------------------------------------------------
+# Material académico para estudiantes
+#
+# Descripción: Cálculo y graficación de propiedades psicrométricas del aire húmedo con R.
+# ==========================================================================
 
 # Cargar librerías
 library(psychrolib)  # Para cálculos psicrométricos

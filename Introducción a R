@@ -1,12 +1,15 @@
+# ==========================================================================
 # Introducción a R - Conceptos Básicos
-# -----------------------------------------------------------
-# José Juan Torres Martínez
+# ==========================================================================
+# Autor: José Juan Torres Martínez
+# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
+# Doctorado en Ciencias en Bioprocesos
 # Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
-# -----------------------------------------------------------
+# Material académico para estudiantes
+#
+# Descripción: Introducción a R: conceptos básicos, comentarios, asignación de variables y operaciones fundamentales.
+# ==========================================================================
 
-# Comentarios en R se escriben con #
-
-# Asignación de variables
 x <- 10   # Asignamos el valor 10 a la variable x
 y <- 5    # Asignamos el valor 5 a la variable y
 
