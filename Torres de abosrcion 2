@@ -1,14 +1,16 @@
 # ==========================================================================
 # Torres de absorción 2
 # ==========================================================================
-# Autor: José Juan Torres Martínez
-# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
-# Doctorado en Ciencias en Bioprocesos
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
 # Material académico para estudiantes
 #
 # Descripción: Problema de torres de absorción: eliminación de oxígeno de una corriente que contiene acetona.
 # ==========================================================================
+
 
 # 1. Definir datos iniciales
 fraccion_entrada_acetona <- 0.15  # Fracción molar de acetona en la alimentación

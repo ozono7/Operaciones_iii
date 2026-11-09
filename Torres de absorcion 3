@@ -1,14 +1,16 @@
 # ==========================================================================
 # Torres de absorción 3
 # ==========================================================================
-# Autor: José Juan Torres Martínez
-# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
-# Doctorado en Ciencias en Bioprocesos
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
 # Material académico para estudiantes
 #
 # Descripción: Problema de torres de absorción: eliminación de nitrógeno de una corriente que contiene benceno.
 # ==========================================================================
+
 
 # 1. Definir datos iniciales
 fraccion_entrada_benceno <- 0.20  # Fracción molar de benceno en la alimentación

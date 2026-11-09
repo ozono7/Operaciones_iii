@@ -1,14 +1,16 @@
 # ==========================================================================
 # Lixiviación en la Industria Minera
 # ==========================================================================
-# Autor: José Juan Torres Martínez
-# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
-# Doctorado en Ciencias en Bioprocesos
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
 # Material académico para estudiantes
 #
 # Descripción: Extracción de sulfato de cobre (SO₄Cu) a partir de un mineral de cobre
 # ==========================================================================
+
 
 # Datos del problema  
 masa_mineral <- 500  # Masa del mineral (kg)  

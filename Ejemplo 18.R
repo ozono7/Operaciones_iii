@@ -1,14 +1,16 @@
 # ==========================================================================
 # Cristalización de una solución salina
 # ==========================================================================
-# Autor: José Juan Torres Martínez
-# Institución: Universidad Autónoma de San Luis Potosí (UASLP)
-# Doctorado en Ciencias en Bioprocesos
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
 # Material académico para estudiantes
 #
 # Descripción: Cálculo del rendimiento de cristales de Na₂SO₄·10H₂O
 # ==========================================================================
+
 
 # Datos del problema  
 masa_solucion <- 100000  # Masa de la solución (kg)  
