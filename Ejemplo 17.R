@@ -1,11 +1,16 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
+# ==========================================================================
+# Extracción Sólido-Líquido (Lixiviación) en la Industria Bioquímica
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Lixiviación de un antibiótico a partir de un residuo biológico
+# ==========================================================================
 
-# Tema: Extracción Sólido-Líquido (Lixiviación) en la Industria Bioquímica  
-# Problema: Lixiviación de un antibiótico a partir de un residuo biológico  
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

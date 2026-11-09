@@ -1,16 +1,16 @@
-# Torres de absorcion 1
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez
-# Doctorado en Ciencias en Bioprocesos
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
-# -----------------------------------------------------------
+# ==========================================================================
+# Torres de absorción 1
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Problema de torres de absorción: eliminación de nitrógeno de una corriente gaseosa.
+# ==========================================================================
 
-# Problema de Torres de Absorción
-# Se utiliza un absorbedor para eliminar el gas portador nitrógeno.
-# La alimentación tiene una fracción de peso de acetona de 0.213 y una velocidad de 200 kg/h.
-# El líquido absorbente es agua a una velocidad de 1000 kg/h.
-# La corriente de gas de salida tiene 0.8% en peso de acetona y 2.9% de vapor de agua.
-# Se pide determinar la fracción de masa de acetona en la corriente inferior.
 
 # 1. Definir datos iniciales
 fraccion_entrada_acetona <- 0.213  # Fracción de peso de acetona en la alimentación

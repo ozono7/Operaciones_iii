@@ -1,17 +1,16 @@
-# Torres de abosrcion 2
+# ==========================================================================
+# Torres de absorción 2
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Problema de torres de absorción: eliminación de oxígeno de una corriente que contiene acetona.
+# ==========================================================================
 
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez
-# Doctorado en Ciencias en Bioprocesos
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática
-# -----------------------------------------------------------
-
-# Problema de Torres de Absorción
-# Se utiliza un absorbedor para eliminar el gas portador oxígeno de una corriente que contiene acetona.
-# La alimentación tiene una fracción molar de acetona de 0.15 y una velocidad de 500 lb/h.
-# El líquido absorbente es metanol a una velocidad de 2000 lb/h.
-# La corriente de gas de salida tiene 1.2% en fracción molar de acetona y 4.5% de vapor de metanol.
-# Se pide determinar la fracción molar de acetona en la corriente inferior y la cantidad total de acetona absorbida por hora.
 
 # 1. Definir datos iniciales
 fraccion_entrada_acetona <- 0.15  # Fracción molar de acetona en la alimentación

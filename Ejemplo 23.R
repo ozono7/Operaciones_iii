@@ -1,12 +1,16 @@
+# ==========================================================================
+# Simulación de Cromatografía de Intercambio Iónico
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Separar y analizar dos proteínas (Quimasa y Lactoperoxidasa)
+# ==========================================================================
 
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
-
-# Tema: Simulación de Cromatografía de Intercambio Iónico  
-# Objetivo: Separar y analizar dos proteínas (Quimasa y Lactoperoxidasa)  
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

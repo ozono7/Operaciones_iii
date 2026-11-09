@@ -1,11 +1,16 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
+# ==========================================================================
+# Extracción Sólido-Líquido (Lixiviación) en la Industria de Alimentos
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Extracción de antioxidantes a partir de cáscaras de cítricos
+# ==========================================================================
 
-# Tema: Extracción Sólido-Líquido (Lixiviación) en la Industria de Alimentos  
-# Problema: Extracción de antioxidantes a partir de cáscaras de cítricos  
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

@@ -1,11 +1,16 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
+# ==========================================================================
+# Electroforesis de Proteínas (SDS-PAGE)
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Analizar la migración de proteínas en un gel de poliacrilamida
+# ==========================================================================
 
-# Tema: Electroforesis de Proteínas (SDS-PAGE)  
-# Objetivo: Analizar la migración de proteínas en un gel de poliacrilamida  
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

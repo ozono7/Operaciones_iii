@@ -1,11 +1,16 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
+# ==========================================================================
+# Evaluación de las Isotermas de Sorción en la Extracción de Aceite
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Extracción de aceite de una harina de pescado usando benceno
+# ==========================================================================
 
-# Tema: Evaluación de las Isotermas de Sorción en la Extracción de Aceite  
-# Problema: Extracción de aceite de una harina de pescado usando benceno  
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

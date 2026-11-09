@@ -1,11 +1,16 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
+# ==========================================================================
+# Extracción Sólido-Líquido (Lixiviación)
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Adsorción y desorción de plomo en carbón activado
+# ==========================================================================
 
-# Tema: Extracción Sólido-Líquido (Lixiviación)  
-# Problema: Adsorción y desorción de plomo en carbón activado  
 
 # Instalar y cargar librerías necesarias  
 if (!require(ggplot2)) install.packages("ggplot2", dependencies = TRUE)  

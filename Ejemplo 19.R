@@ -1,11 +1,16 @@
-# -----------------------------------------------------------
-# Autor: José Juan Torres Martínez  
-# Doctorado en Ciencias en Bioprocesos  
-# Laboratorio de Biotecnología Molecular de Células Vegetales y Bioinformática  
-# -----------------------------------------------------------
+# ==========================================================================
+# Cristalización en la Industria Bioquímica
+# ==========================================================================
+# Autor: Dr. José Juan Torres Martínez
+# Docente de Ciencias Químicas
+# Universidad Autónoma de San Luis Potosí (UASLP)
+# México
+#
+# Material académico para estudiantes
+#
+# Descripción: Cristalización de una proteína a partir de una solución
+# ==========================================================================
 
-# Tema: Cristalización en la Industria Bioquímica  
-# Problema: Cristalización de una proteína a partir de una solución  
 
 # Datos del problema  
 volumen_solucion <- 1000  # Volumen de la solución (L)  
