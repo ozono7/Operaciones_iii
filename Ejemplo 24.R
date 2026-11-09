@@ -39,6 +39,25 @@ ggplot(datos, aes(x = Distancia, y = log10(Peso_Molecular))) +
   ) +  
   theme_minimal()  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Gráfica de Calibración para Electroforesis SDS-PAGE
+# --------------------------------------------------------------------------
+# - Eje X: Distancia migrada en el gel, en centímetros (cm). Se mide desde el
+#   punto de siembra hasta donde llegó cada banda de proteína.
+# - Eje Y: Log10 del peso molecular. Es el logaritmo en base 10 del peso
+#   molecular (los datos están en kilodaltons, kDa), por lo que es adimensional:
+#   un logaritmo no tiene unidades. Un valor de 1,8 equivale a unos 66 kDa y un
+#   valor de 1,1 a unos 12 kDa.
+# - Lo que se aprecia: tres puntos que bajan de izquierda a derecha: la
+#   Albúmina (66 kDa) migró solo 2,5 cm, la Mioglobina (17 kDa) migró 5,0 cm y
+#   el Citocromo C (12 kDa) llegó más lejos, 6,0 cm. La recta de calibración
+#   tiene pendiente negativa.
+# - Qué significa: en SDS-PAGE las proteínas pequeñas atraviesan mejor los poros
+#   del gel y migran más lejos, mientras que las grandes se quedan atrás. Por
+#   eso la recta permite estimar el peso molecular de una proteína desconocida
+#   a partir de lo que migra: el script lo hace para una banda a 4,2 cm.
+
 # 2. Ecuación de la recta de calibración (regresión lineal)  
 modelo <- lm(log10(Peso_Molecular) ~ Distancia, data = datos)  
 coeficientes <- coef(modelo)  
@@ -57,3 +76,16 @@ cat("Las proteínas migran distancias diferentes debido a su tamaño molecular.\
 cat("Las proteínas más pequeñas (menor peso molecular) migran más lejos en el gel,\n")  
 cat("mientras que las proteínas más grandes (mayor peso molecular) migran menos.\n")  
 
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En SDS-PAGE, la distancia migrada (cm) depende del tamaño: las proteínas
+#   pequeñas migran más lejos que las grandes.
+# - Graficar el logaritmo del peso molecular contra la distancia da una recta
+#   de calibración: el eje Y es adimensional porque un logaritmo no tiene
+#   unidades, y los pesos se expresan en kDa.
+# - Con la ecuación de esa recta se estima el peso molecular (kDa) de una
+#   proteína desconocida midiendo solo cuánto migró en el gel.
+# - La calibración de este ejemplo usa solo tres proteínas, así que es una
+#   recta aproximada para aprender el método, no una calibración de laboratorio.

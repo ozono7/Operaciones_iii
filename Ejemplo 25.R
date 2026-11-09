@@ -39,6 +39,26 @@ ggplot(datos, aes(x = Distancia, y = log10(Tamano))) +
   ) +  
   theme_minimal()  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Gráfica de Calibración para Electroforesis de ADN
+# --------------------------------------------------------------------------
+# - Eje X: Distancia migrada en el gel de agarosa, en centímetros (cm). Se mide
+#   desde el pozo de siembra hasta donde llegó cada banda de ADN.
+# - Eje Y: Log10 del tamaño del fragmento. Es el logaritmo en base 10 del tamaño
+#   en pares de bases (pb), por lo que es adimensional: un logaritmo no tiene
+#   unidades. Un valor de 3,7 equivale a unos 5000 pb y un valor de 2,7 a unos
+#   500 pb.
+# - Lo que se aprecia: cuatro puntos que bajan de izquierda a derecha: el
+#   Fragmento A (500 pb) migró 4,5 cm, el B (1000 pb) 3,5 cm, el C (2000 pb)
+#   2,5 cm y el D (5000 pb) solo 1,5 cm. La recta de calibración tiene pendiente
+#   negativa.
+# - Qué significa: en un gel de agarosa los fragmentos pequeños de ADN se mueven
+#   más rápido y llegan más lejos, mientras que los grandes avanzan poco. Por
+#   eso la recta permite estimar el tamaño en pares de bases de un fragmento
+#   desconocido a partir de lo que migró: el script lo hace para una banda
+#   a 3,0 cm.
+
 # 2. Ecuación de la recta de calibración (regresión lineal)  
 modelo <- lm(log10(Tamano) ~ Distancia, data = datos)  
 coeficientes <- coef(modelo)  
@@ -57,3 +77,16 @@ cat("Los fragmentos de ADN migran distancias diferentes debido a su tamaño.\n")
 cat("Los fragmentos más pequeños (menos pares de bases) migran más lejos en el gel,\n")  
 cat("mientras que los fragmentos más grandes (más pares de bases) migran menos.\n")  
 
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En electroforesis de ADN, la distancia migrada (cm) depende del tamaño: los
+#   fragmentos pequeños migran más lejos que los grandes.
+# - Graficar el logaritmo del tamaño contra la distancia da una recta de
+#   calibración: el eje Y es adimensional porque un logaritmo no tiene
+#   unidades, y los tamaños se expresan en pares de bases (pb).
+# - Con la ecuación de esa recta se estima el tamaño (pb) de un fragmento
+#   desconocido midiendo solo cuánto migró en el gel.
+# - La calibración de este ejemplo usa solo cuatro fragmentos, así que es una
+#   recta aproximada para aprender el método, no una calibración de laboratorio.

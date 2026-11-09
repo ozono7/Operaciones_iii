@@ -96,3 +96,25 @@ cat("  Antibiótico:", round(polo_x * 100, 2), "%\n")
 cat("  Agua:", round(polo_y * 100, 2), "%\n\n")  
 
 cat("Número de etapas ideales:", round(numero_etapas, 2), "\n")  
+
+# --------------------------------------------------------------------------
+# Nota: este script no produce ningún gráfico
+# --------------------------------------------------------------------------
+# Este ejemplo solo calcula y muestra resultados en la consola (composiciones
+# en %, masas en kg y número de etapas ideales).
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En una lixiviación en una etapa se calculan los balances de masa del
+#   extracto (flujo superior) y del refinado (flujo inferior), con todas las
+#   composiciones en fracción másica (adimensional, aquí mostrada en %).
+# - Parte de la disolución queda retenida en los sólidos inertes (retención de
+#   0,6 kg de disolución por kg de inertes, en kg/kg): esa disolución retenida
+#   se lleva antibiótico consigo y no sale en el extracto.
+# - El punto de mezcla y el polo son coordenadas de composición (antibiótico y
+#   agua, en %) que ubican la mezcla y la dirección de las corrientes en el
+#   diagrama de lixiviación.
+# - El número de etapas ideales es un conteo adimensional que se estima con la
+#   relación de distribución K (adimensional) y las masas de antibiótico
+#   extraído y retenido.

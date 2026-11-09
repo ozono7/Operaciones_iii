@@ -110,3 +110,39 @@ p <- ggplot() +
 # Mostrar gráfico
 print(p)
 
+# --------------------------------------------------------------------------
+# Interpretación: Proceso de Humidificación en el Diagrama Psicrométrico
+# --------------------------------------------------------------------------
+# - Eje X: Temperatura de bulbo seco, en grados Celsius (°C). Es la temperatura
+#   del aire medida con un termómetro común; va de -10 °C a 50 °C.
+# - Eje Y: Humedad absoluta, en gramos de vapor de agua por kilogramo de aire
+#   seco (g/kg). Indica cuánta agua lleva cada kilogramo de aire seco.
+# - Color (leyenda): Humedad relativa, en porcentaje (%). Es adimensional: es
+#   el cociente entre la humedad que tiene el aire y la máxima que podría
+#   tener a esa temperatura. La curva azul gruesa de arriba es la saturación
+#   (100 % de humedad relativa): por encima de ella el aire ya no admite más
+#   vapor y el agua se condensaría.
+# - Lo que se aprecia: una flecha negra va del punto azul "Inicio" (20 °C y
+#   30 % de humedad relativa) al punto rojo "Final" (25 °C y 60 % de humedad
+#   relativa). La flecha sube y avanza hacia la derecha, cruzando líneas de
+#   humedad relativa cada vez mayores.
+# - Qué significa: el aire se calienta y a la vez se le agrega agua: aumenta
+#   su temperatura y su humedad absoluta al mismo tiempo. Por eso el proceso
+#   necesita energía térmica (el script calcula cuántos kW) y un aporte de
+#   agua (cuántos kg/h).
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - La carta psicrométrica relaciona temperatura, humedad absoluta y humedad
+#   relativa del aire húmedo: con dos de estas propiedades se ubica un punto
+#   y se leen las demás.
+# - La humedad absoluta se expresa en g de vapor/kg de aire seco, y la humedad
+#   relativa es un porcentaje adimensional (0-100 %).
+# - Humidificar el aire es calentarlo y agregarle agua a la vez: la flecha del
+#   proceso sube (más humedad) y avanza a la derecha (más temperatura).
+# - Para dimensionar el proceso hay que calcular cuánta agua se agrega (kg/h)
+#   y cuánta energía térmica se necesita (kW).
+# - Un gráfico claro y bien presentado se lee por sus ejes: primero se
+#   identifican las variables y sus unidades, y después el patrón.
+

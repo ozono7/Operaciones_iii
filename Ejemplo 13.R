@@ -72,7 +72,38 @@ ggplot(datos, aes(x = Tiempo)) +
   theme_minimal() +  
   theme(legend.position = "right")  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Adsorción y Desorción de Plomo en Carbón Activado
+# --------------------------------------------------------------------------
+# - Eje X: Tiempo, en minutos (min). Va de 0 a 120 minutos.
+# - Eje Y: Cantidad de plomo, en miligramos (mg). Es la masa de plomo retenida
+#   en el carbón (adsorción) o liberada de él (desorción).
+# - Lo que se aprecia: la curva de adsorción (primeros 60 minutos) sube rápido
+#   al principio y luego se aplana al acercarse a un valor máximo: el carbón se
+#   va saturando de plomo. A partir de los 60 minutos aparece la curva de
+#   desorción, que también sube y se aplana: el plomo sale del carbón, pero no
+#   todo, porque la eficiencia de desorción del archivo es del 80 %.
+# - Qué significa: el carbón activado retiene el plomo del agua hasta llegar a
+#   su capacidad de equilibrio (isoterma de Langmuir, con qmax = 50 mg/g y
+#   K = 0,1 L/mg según el archivo), y después puede regenerarse parcialmente
+#   liberando el plomo adsorbido. Las curvas son una simulación con forma
+#   exponencial, no datos medidos minuto a minuto.
+
 # Mostrar resultados en la consola  
 cat("Concentración de equilibrio de plomo en la solución:", round(Ce, 2), "mg/L\n")  
 cat("Cantidad de plomo adsorbido:", round(cantidad_adsorbida, 2), "mg\n")  
 cat("Cantidad de plomo desorbido:", round(cantidad_desorbida, 2), "mg\n")  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - La adsorción sube rápido al inicio y se aplana al saturarse el adsorbente:
+#   la curva se acerca a un valor máximo y ya no crece aunque pase más tiempo.
+# - La isoterma de Langmuir describe ese máximo: qmax es la capacidad máxima
+#   en mg de plomo por g de carbón (mg/g) y K es la constante de equilibrio
+#   en L/mg.
+# - La desorción no recupera todo el plomo: con una eficiencia del 80 %, una
+#   parte queda retenida en el carbón.
+# - Las curvas de este script son una simulación para visualizar el proceso,
+#   no mediciones experimentales.

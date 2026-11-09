@@ -95,7 +95,39 @@ ggplot() +
        y = "Fracción molar de A en gas") +
   theme_minimal()
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Diagrama McCabe-Thiele para la Torre de Absorción
+# --------------------------------------------------------------------------
+# - Eje X: Fracción molar de A en el líquido (x). Es adimensional: es el
+#   cociente entre los moles de A y los moles totales del líquido; va de 0 a 1
+#   (aquí solo se muestra el intervalo pequeño desde 0 hasta la fracción de salida).
+# - Eje Y: Fracción molar de A en el gas (y). También es adimensional, con el
+#   mismo significado pero para el gas.
+# - Lo que se aprecia: dos líneas, la de equilibrio (azul, punteada) y la de
+#   operación (roja, continua), y entre ellas una escalera de puntos negros
+#   unidos por una línea punteada. Cada escalón baja en vertical hasta la línea
+#   de equilibrio y luego avanza en horizontal hasta la línea de operación.
+# - Qué significa: cada escalón completo de la escalera es una etapa teórica
+#   de la torre. Contar los escalones da el número de etapas necesarias para
+#   bajar la fracción de A en el gas desde 0,02 (entrada) hasta 0,002 (salida).
+#   Cuanto más separadas estén las dos líneas, menos escalones hacen falta.
+
 # ---------------------- Mostrar el número de etapas ----------------------
 # El número de etapas es la mitad del número de puntos en la lista de etapas.
 num_etapas <- nrow(etapas) / 2
 cat("Número de etapas requeridas:", num_etapas, "\n")
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - El método de McCabe-Thiele dibuja la línea de equilibrio (lo que la
+#   termodinámica permite) y la línea de operación (lo que el balance de masa
+#   impone) en un mismo gráfico de fracción molar en el gas contra fracción
+#   molar en el líquido.
+# - Las fracciones molares son adimensionales (moles de A entre moles totales)
+#   y por eso los dos ejes no llevan unidades físicas.
+# - El número de etapas teóricas se lee contando los escalones entre las dos
+#   líneas: cada escalón es una etapa de contacto gas-líquido.
+# - Cambiar la relación de flujo líquido/gas mueve la línea de operación y
+#   cambia el número de etapas necesarias.

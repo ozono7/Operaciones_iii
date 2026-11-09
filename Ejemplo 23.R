@@ -82,3 +82,36 @@ ggplot(datos, aes(x = Tiempo)) +
   ) +  
   theme_minimal() +  
   theme(legend.position = "top")  
+
+# --------------------------------------------------------------------------
+# Interpretación: Picos Cromatográficos de Quimasa y Lactoperoxidasa
+# --------------------------------------------------------------------------
+# - Eje X: Tiempo, en minutos (min). La Quimasa sale a los 8 min y la
+#   Lactoperoxidasa a los 11 min.
+# - Eje Y: Intensidad. La unidad no está especificada en el archivo: es un
+#   valor relativo de altura del pico, calculado con la función de densidad
+#   normal (dnorm), que solo sirve para comparar los picos entre sí, no es una
+#   señal medida en unidades físicas.
+# - Lo que se aprecia: dos picos en forma de campana bien separados. El pico de
+#   la Quimasa es más alto y estrecho (ancho de 1,2 min) y el de la
+#   Lactoperoxidasa es más bajo y ancho (ancho de 1,8 min). Entre sus máximos
+#   hay 3 minutos y las bases apenas se tocan.
+# - Qué significa: la separación es buena. Con los datos del archivo, la
+#   resolución es R = 2,0, por encima de 1,5, que es el valor que el propio
+#   script indica como buena separación. La Lactoperoxidasa se retiene más
+#   (sale después) que la Quimasa en esta columna de intercambio iónico.
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En un cromatograma, cada pico es un compuesto: su posición en el eje del
+#   tiempo (min) es su tiempo de retención y su ancho (min) dice qué tan
+#   disperso sale de la columna.
+# - La resolución R es adimensional y compara la distancia entre dos picos con
+#   sus anchos: con R = 2,0 (mayor que 1,5) la separación de Quimasa y
+#   Lactoperoxidasa es buena.
+# - El número de platos teóricos N (adimensional) y la altura equivalente HETP
+#   (en cm) miden la eficiencia de la columna: más platos y menor HETP
+#   significan picos más estrechos y mejor separación.
+# - La intensidad del eje Y es un valor relativo sin unidad especificada en el
+#   archivo: sirve para comparar los picos, no es una concentración medida.

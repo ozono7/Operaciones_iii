@@ -69,9 +69,42 @@ ggtern(data = datos, aes(x = Agua, y = PEG, z = Proteinas)) +
   theme_rgbw() +  
   theme(legend.position = "right")  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Diagrama Ternario: Extracción de Proteínas usando ABS
+# --------------------------------------------------------------------------
+# - Ejes: en un diagrama ternario no hay un eje X y un eje Y como en un gráfico
+#   común: cada esquina del triángulo es un componente puro (Agua, PEG y
+#   Proteínas) y cada punto indica una composición. Las tres fracciones
+#   másicas son adimensionales (kg de componente por kg de mezcla) y siempre
+#   suman 1.
+# - Eje X (una esquina): Agua, en fracción másica (adimensional, de 0 a 1).
+# - Eje Y (otra esquina): PEG (polietilenglicol), en fracción másica
+#   (adimensional, de 0 a 1).
+# - Eje Z (tercera esquina): Proteínas, en fracción másica (adimensional,
+#   de 0 a 1).
+# - Lo que se aprecia: dos puntos, uno cerca de la esquina del agua (fase rica
+#   en fosfato, con poca proteína) y otro cerca de la esquina del PEG (fase
+#   rica en PEG, con mucha más proteína).
+# - Qué significa: en este sistema acuoso bifásico (ABS) las proteínas prefieren
+#   la fase rica en PEG: la relación de distribución K = 3,2 indica que su
+#   concentración en la fase de PEG es 3,2 veces la de la fase de fosfato. Por
+#   eso el ABS sirve para separar proteínas sin usar disolventes orgánicos.
+
 # Mostrar resultados en la consola  
 cat("Composición en la fase rica en fosfato después de la extracción:\n")  
 print(composicion_fosfato)  
 cat("\nComposición en la fase rica en PEG después de la extracción:\n")  
 print(composicion_PEG)  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - Un sistema acuoso bifásico (ABS) forma dos fases acuosas (una rica en PEG
+#   y otra rica en fosfato) que permiten separar proteínas sin disolventes
+#   orgánicos.
+# - Un diagrama ternario representa mezclas de tres componentes: cada punto es
+#   una composición y las tres fracciones másicas (adimensionales) suman 1.
+# - La relación de distribución K (adimensional) dice hacia qué fase migra el
+#   soluto: con K = 3,2 las proteínas se concentran en la fase rica en PEG.
 

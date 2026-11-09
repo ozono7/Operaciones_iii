@@ -59,7 +59,35 @@ ggplot(datos, aes(x = Fase, y = Concentracion, fill = Fase)) +
        fill = "Fase") +  
   theme_minimal()  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Concentración de Ácido Acético después de la Extracción
+# --------------------------------------------------------------------------
+# - Eje X: Fase. No es un eje numérico: son dos categorías, la fase acuosa
+#   (agua) y la fase orgánica (éter dietílico). Cada barra es una fase.
+# - Eje Y: Concentración de ácido acético, en gramos por litro (g/L). La altura
+#   de cada barra es la concentración que queda en esa fase tras la extracción.
+# - Lo que se aprecia: la barra de la fase orgánica es mucho más alta que la
+#   de la fase acuosa. El ácido acético se concentró en el éter y quedó poco
+#   en el agua.
+# - Qué significa: el éter extrae bien el ácido acético del agua, porque la
+#   relación de distribución K = 2,5 indica que, en equilibrio, la concentración
+#   en la fase orgánica es 2,5 veces la de la fase acuosa. La eficiencia de
+#   extracción (en %) que imprime el script resume qué parte del ácido total
+#   terminó en el éter.
+
 # Mostrar resultados en la consola  
 cat("Concentración en la fase acuosa después de la extracción:", round(C_acuoso_final, 2), "g/L\n")  
 cat("Concentración en la fase orgánica después de la extracción:", round(C_organico_final, 2), "g/L\n")  
 cat("Eficiencia de extracción:", round(eficiencia, 2), "%\n")  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En una extracción líquido-líquido el soluto se reparte entre dos fases que
+#   no se mezclan, y la relación de distribución K dice cuántas veces más
+#   concentrado queda en una fase que en la otra (K es adimensional).
+# - Un gráfico de barras permite comparar de un vistazo la concentración final
+#   en cada fase, en g/L.
+# - La eficiencia de extracción (en %) indica qué fracción de la masa inicial
+#   de soluto pasó a la fase orgánica.

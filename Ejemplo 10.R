@@ -69,9 +69,39 @@ ggtern(data = datos, aes(x = Agua, y = Benceno, z = Acido_benzoico)) +
   theme_rgbw() +  
   theme(legend.position = "right")  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Diagrama Ternario: Extracción de Ácido Benzoico
+# --------------------------------------------------------------------------
+# - Ejes: en un diagrama ternario no hay un eje X y un eje Y como en un gráfico
+#   común: cada esquina del triángulo es un componente puro (Agua, Benceno y
+#   Ácido benzoico) y cada punto indica una composición. Las tres fracciones
+#   másicas son adimensionales (kg de componente por kg de mezcla) y siempre
+#   suman 1.
+# - Eje X (una esquina): Agua, en fracción másica (adimensional, de 0 a 1).
+# - Eje Y (otra esquina): Benceno, en fracción másica (adimensional, de 0 a 1).
+# - Eje Z (tercera esquina): Ácido benzoico, en fracción másica (adimensional,
+#   de 0 a 1).
+# - Lo que se aprecia: dos puntos, uno cerca de la esquina del agua (fase
+#   acuosa, con poco ácido benzoico) y otro cerca de la esquina del benceno
+#   (fase orgánica, con mucho más ácido benzoico).
+# - Qué significa: el ácido benzoico prefiere el benceno al agua: la relación
+#   de distribución K = 4,5 indica que su concentración en benceno es 4,5 veces
+#   la del agua. Por eso la extracción lo saca del agua y lo lleva al benceno.
+
 # Mostrar resultados en la consola  
 cat("Composición en la fase acuosa después de la extracción:\n")  
 print(composicion_agua)  
 cat("\nComposición en la fase orgánica (benceno) después de la extracción:\n")  
 print(composicion_benceno)  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - Un diagrama ternario representa mezclas de tres componentes: cada punto es
+#   una composición y las tres fracciones másicas (adimensionales) suman 1.
+# - Para leerlo se busca qué tan cerca está cada punto de cada esquina: cerca
+#   de una esquina significa que ese componente domina la mezcla.
+# - La relación de distribución K (adimensional) dice hacia qué fase migra el
+#   soluto: con K = 4,5 el ácido benzoico se concentra en el benceno.
 

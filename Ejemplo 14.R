@@ -71,7 +71,41 @@ ggplot(datos, aes(x = Tiempo)) +
   theme_minimal() +  
   theme(legend.position = "right")  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Extracción y Concentración de Antioxidantes
+# --------------------------------------------------------------------------
+# - Eje X: Tiempo, en minutos (min). Va de 0 a 120 minutos; la extracción dura
+#   los primeros 60 minutos y la concentración empieza después.
+# - Eje Y: Cantidad de antioxidantes, en gramos (g), según la etiqueta del eje.
+#   La curva de extracción muestra los gramos extraídos de las cáscaras; la
+#   segunda curva muestra el valor tras aplicar el factor de concentración.
+#   Ojo: el archivo llama "concentración" a esta segunda curva, pero la calcula
+#   y la grafica en gramos (g), no en g/L, porque no indica ningún volumen final.
+# - Lo que se aprecia: la curva de extracción sube rápido al principio y se
+#   aplana al llegar a la cantidad máxima extraíble con una eficiencia del 70 %;
+#   después, la segunda curva sube desde ese valor hasta un valor mayor, según
+#   el factor de concentración (5) del archivo.
+# - Qué significa: de 100 g de cáscaras solo una parte son antioxidantes
+#   extraíbles, y el extracto se concentra después de la extracción. La segunda
+#   curva es un modelo simplificado del archivo (cantidad extraída por un
+#   factor), no una medición de concentración en g/L.
+
 # Mostrar resultados en la consola  
 cat("Cantidad de antioxidantes extraídos:", round(antioxidantes_extraidos, 2), "g\n")  
 cat("Concentración final de antioxidantes:", round(concentracion_final, 2), "g\n")  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - La extracción sólido-líquido saca los compuestos solubles de un sólido con
+#   un disolvente: la cantidad extraída crece rápido al inicio y se aplana al
+#   agotarse lo extraíble.
+# - La eficiencia de extracción (70 % en este ejemplo, adimensional y expresada
+#   en %) limita cuántos antioxidantes se recuperan de los que había en la
+#   materia prima.
+# - Concentrar un extracto aumenta su contenido por unidad de volumen, pero no
+#   crea más antioxidante: en este archivo la concentración se modela de forma
+#   simplificada como la cantidad extraída por un factor (5), y se grafica en
+#   gramos (g), no en g/L.
 

@@ -59,8 +59,38 @@ ggplot(datos, aes(x = Fase, y = Concentracion, fill = Fase)) +
        fill = "Fase") +  
   theme_minimal()  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Concentración de Yodo después de la Extracción
+# --------------------------------------------------------------------------
+# - Eje X: Fase. No es un eje numérico: son dos categorías, la fase acuosa
+#   (agua) y la fase orgánica (tetracloruro de carbono, CCl4). Cada barra es
+#   una fase.
+# - Eje Y: Concentración de yodo, en gramos por litro (g/L). La altura de cada
+#   barra es la concentración que queda en esa fase tras la extracción.
+# - Lo que se aprecia: la barra de la fase orgánica es muchísimo más alta que
+#   la de la fase acuosa, que queda casi en cero. Casi todo el yodo se fue al
+#   tetracloruro de carbono.
+# - Qué significa: el tetracloruro de carbono extrae el yodo con mucha fuerza,
+#   porque la relación de distribución K = 85 indica que, en equilibrio, la
+#   concentración en la fase orgánica es 85 veces la de la fase acuosa. Con un
+#   K tan grande, una sola extracción deja el agua prácticamente sin yodo, y la
+#   eficiencia de extracción (en %) queda muy cerca del 100 %.
+
 # Mostrar resultados en la consola  
 cat("Concentración en la fase acuosa después de la extracción:", round(C_acuoso_final, 4), "g/L\n")  
 cat("Concentración en la fase orgánica después de la extracción:", round(C_organico_final, 4), "g/L\n")  
 cat("Eficiencia de extracción:", round(eficiencia, 2), "%\n")  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En una extracción líquido-líquido el soluto se reparte entre dos fases que
+#   no se mezclan, y la relación de distribución K dice cuántas veces más
+#   concentrado queda en una fase que en la otra (K es adimensional).
+# - Cuando K es muy grande (aquí K = 85), casi todo el soluto pasa a la fase
+#   orgánica en una sola extracción y la fase acuosa queda casi vacía.
+# - Un gráfico de barras permite comparar de un vistazo la concentración final
+#   en cada fase, en g/L, y la eficiencia de extracción (en %) resume el
+#   resultado en un solo número.
 

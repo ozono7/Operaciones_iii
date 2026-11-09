@@ -88,6 +88,22 @@ ggplot(datos_isoterma, aes(x = Concentracion, y = Adsorcion)) +
        y = "Cantidad de Aceite Adsorbido (kg/kg)") +  
   theme_minimal()  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Isoterma de Sorción de Langmuir
+# --------------------------------------------------------------------------
+# - Eje X: Concentración de aceite en la fase líquida, en kilogramos por litro
+#   (kg/L). Va de 0 a 1 kg/L.
+# - Eje Y: Cantidad de aceite adsorbido, en kilogramos de aceite por kilogramo
+#   de sólido (kg/kg). Indica cuánto aceite retiene cada kilogramo de inertes.
+# - Lo que se aprecia: la curva sube con pendiente fuerte al principio y luego
+#   se aplana, acercándose a un valor máximo sin superarlo.
+# - Qué significa: al principio hay muchos sitios libres y el sólido adsorbe
+#   mucho aceite por cada aumento de concentración; cuando los sitios se van
+#   ocupando, adsorber más cuesta más, hasta llegar a la capacidad máxima
+#   qmax = 0,5 kg/kg del archivo. Esa forma curva es la firma de la isoterma
+#   de Langmuir.
+
 # Crear un data frame para graficar la extracción en función del número de etapas  
 datos_extraccion <- data.frame(  
   Etapa = 1:etapas,  
@@ -104,10 +120,37 @@ ggplot(datos_extraccion, aes(x = Etapa, y = Aceite_Extraido)) +
        y = "Aceite Extraído (kg)") +  
   theme_minimal()  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Extracción de Aceite en Múltiples Etapas
+# --------------------------------------------------------------------------
+# - Eje X: Número de etapas. Es un conteo (1, 2, 3), adimensional: no tiene
+#   unidades físicas, solo indica la primera, segunda o tercera etapa.
+# - Eje Y: Aceite extraído en esa etapa, en kilogramos (kg).
+# - Lo que se aprecia: los puntos unidos por la línea muestran cuánto aceite
+#   se extrae en cada etapa. Como en cada etapa queda menos aceite en la harina,
+#   la cantidad extraída por etapa va disminuyendo.
+# - Qué significa: las primeras etapas son las más productivas y las siguientes
+#   aportan cada vez menos; por eso hay que valorar si una etapa más compensa
+#   el benceno y el tiempo que consume. La eficiencia de cada etapa (en %) y la
+#   eficiencia global se imprimen en la consola.
+
 # Mostrar resultados en la consola  
 cat("Cantidad de aceite extraído en cada etapa (kg):\n")  
 print(aceite_extraido)  
 cat("\nEficiencia de extracción en cada etapa (%):\n")  
 print(eficiencia)  
 cat("\nEficiencia global de extracción después de", etapas, "etapas:", round(sum(eficiencia)), "%\n")  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - La isoterma de Langmuir tiene forma de curva que se aplana: la cantidad
+#   adsorbida crece con la concentración hasta llegar a una capacidad máxima
+#   (qmax, en kg/kg).
+# - En una extracción por etapas, cada etapa extrae menos que la anterior porque
+#   queda menos soluto por extraer; la eficiencia global es la suma de las
+#   eficiencias de cada etapa (en %).
+# - El número de etapas es un conteo adimensional, mientras que el aceite
+#   extraído se mide en kilogramos (kg).
 

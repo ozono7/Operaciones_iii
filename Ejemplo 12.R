@@ -86,6 +86,29 @@ ggtern(data = datos, aes(x = Agua, y = Solidos, z = Antioxidantes)) +
   theme_rgbw() +  
   theme(legend.position = "right")  
 
+
+# --------------------------------------------------------------------------
+# Interpretación: Diagrama Ternario: Extracción de Antioxidantes
+# --------------------------------------------------------------------------
+# - Ejes: en un diagrama ternario no hay un eje X y un eje Y como en un gráfico
+#   común: cada esquina del triángulo es un componente puro (Agua, Sólidos y
+#   Antioxidantes) y cada punto indica una composición. Las tres fracciones
+#   másicas son adimensionales (kg de componente por kg de mezcla) y siempre
+#   suman 1.
+# - Eje X (una esquina): Agua, en fracción másica (adimensional, de 0 a 1).
+# - Eje Y (otra esquina): Sólidos, en fracción másica (adimensional, de 0 a 1).
+# - Eje Z (tercera esquina): Antioxidantes, en fracción másica (adimensional,
+#   de 0 a 1).
+# - Color y forma: el color distingue la fase (rica en agua o rica en etanol)
+#   y la forma del punto distingue la etapa de extracción (etapa 1 o etapa 2).
+# - Lo que se aprecia: cuatro puntos, dos por etapa. En cada etapa el punto de
+#   la fase rica en etanol está más cerca de la esquina de los antioxidantes
+#   que el punto de la fase rica en agua: el etanol se lleva los antioxidantes.
+# - Qué significa: cada etapa extrae una parte de los antioxidantes que quedaban
+#   en la fase acuosa y los pasa al etanol. La eficiencia de cada etapa (en %)
+#   se imprime en la consola: la segunda etapa trabaja sobre lo que dejó la
+#   primera, por eso su aporte es menor.
+
 # Mostrar resultados en la consola  
 cat("Composición en la fase rica en agua después de cada etapa:\n")  
 print(composicion_agua)  
@@ -93,4 +116,15 @@ cat("\nComposición en la fase rica en etanol después de cada etapa:\n")
 print(composicion_etanol)  
 cat("\nEficiencia de extracción en cada etapa:\n")  
 print(eficiencia)  
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - Un diagrama ternario representa mezclas de tres componentes: cada punto es
+#   una composición y las tres fracciones másicas (adimensionales) suman 1.
+# - En una extracción en varias etapas, cada etapa recupera una parte de lo que
+#   quedó de la anterior: la primera etapa es la que más extrae.
+# - La relación de distribución K (adimensional, aquí K = 3,5) dice hacia qué
+#   fase migra el soluto, y la eficiencia de cada etapa (en %) mide el
+#   resultado etapa por etapa.
 

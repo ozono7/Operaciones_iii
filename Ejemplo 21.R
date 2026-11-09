@@ -88,3 +88,29 @@ ggplot(datos, aes(x = Evaporacion, y = Masa_Cristalizada)) +
        y = "Masa de Sacarosa Cristalizada (kg)") +  
   theme_minimal()  
 
+# --------------------------------------------------------------------------
+# Interpretación: Masa de Sacarosa Cristalizada en Función de la Evaporación de Agua
+# --------------------------------------------------------------------------
+# - Eje X: Evaporación de agua, en porcentaje (%). Es adimensional: es la
+#   fracción de agua inicial que se evapora, expresada de 0 % a 10 %.
+# - Eje Y: Masa de sacarosa cristalizada, en kilogramos (kg). Es la masa de
+#   cristales que se forma al enfriar la solución.
+# - Lo que se aprecia: la línea sube de forma recta y constante: a más agua
+#   evaporada, más sacarosa cristalizada.
+# - Qué significa: al evaporar agua queda menos agua para mantener disuelta la
+#   sacarosa (la solubilidad es de 200 g por cada 100 g de agua), así que el
+#   excedente tiene que salir como cristales. Evaporar antes de cristalizar
+#   aumenta el rendimiento, y el script calcula los dos casos: sin evaporación
+#   y con evaporación del 8 %.
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - La cristalización por enfriamiento y evaporación se rige por la solubilidad:
+#   solo cabe disuelta una masa fija de soluto por cada masa de disolvente.
+# - Evaporar parte del agua antes de cristalizar aumenta la masa de cristales
+#   y el rendimiento (en %), porque queda menos agua para retener sacarosa
+#   disuelta.
+# - La evaporación se expresa en % (adimensional) y la masa cristalizada en
+#   kilogramos (kg).
+

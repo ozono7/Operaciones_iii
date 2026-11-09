@@ -77,3 +77,36 @@ ggplot(datos, aes(x = Tiempo)) +
        color = "Proteína") +  
   theme_minimal()  
 
+# --------------------------------------------------------------------------
+# Interpretación: Picos Cromatográficos de las Proteínas A y B
+# --------------------------------------------------------------------------
+# - Eje X: Tiempo, en minutos (min). Es el tiempo que tarda cada proteína en
+#   salir de la columna: la proteína A sale a los 10 min y la B a los 12 min.
+# - Eje Y: Intensidad. La unidad no está especificada en el archivo: es un
+#   valor relativo de altura del pico, calculado con la función de densidad
+#   normal (dnorm), que solo sirve para comparar qué tan alto y ancho es cada
+#   pico, no es una señal medida en unidades físicas.
+# - Lo que se aprecia: dos picos en forma de campana, uno para cada proteína.
+#   El pico de la proteína A es más alto y estrecho (ancho de 1,5 min) y el de
+#   la B es más bajo y ancho (ancho de 2,0 min). Los picos están cerca (solo
+#   2 minutos entre sus máximos) y se solapan parcialmente en la base.
+# - Qué significa: las proteínas se separan porque salen a tiempos distintos,
+#   pero como sus picos están cerca y se solapan un poco, la separación no es
+#   completa. La resolución R (adimensional) que calcula el script mide justo
+#   eso: qué tan separados están los picos en relación con su ancho.
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - En un cromatograma, cada pico es un compuesto: su posición en el eje del
+#   tiempo (min) es su tiempo de retención y su ancho (min) dice qué tan
+#   disperso sale de la columna.
+# - La resolución R es adimensional y compara la distancia entre dos picos con
+#   sus anchos: si los picos están cerca y son anchos, se solapan y la
+#   separación es mala.
+# - El número de platos teóricos N (adimensional) y la altura equivalente HETP
+#   (en cm) miden la eficiencia de la columna: más platos y menor HETP
+#   significan picos más estrechos y mejor separación.
+# - La intensidad del eje Y es un valor relativo sin unidad especificada en el
+#   archivo: sirve para comparar los picos, no es una concentración medida.
+
