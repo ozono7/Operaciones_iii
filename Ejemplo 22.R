@@ -22,6 +22,11 @@ d <- 1  # Diámetro de la columna (cm)
 V_s <- 10  # Volumen de la fase estacionaria (mL)  
 V_m <- 40  # Volumen de la fase móvil (mL)  
 
+# Tiempo muerto de la columna: lo que tarda en salir un compuesto no retenido.
+# Es un dato del problema (1 min): no se puede deducir de V_m, porque para
+# eso haría falta el caudal de fase móvil, que el archivo no indica.
+t_M <- 1  # Tiempo muerto (min)
+
 # Tiempos de retención y anchos de pico  
 t_R_A <- 10  # Tiempo de retención de la proteína A (min)  
 W_A <- 1.5  # Ancho de pico de la proteína A (min)  
@@ -30,8 +35,9 @@ W_B <- 2.0  # Ancho de pico de la proteína B (min)
 
 # Cálculos  
 # 1. Factor de retención (k) para cada proteína  
-k_A <- (t_R_A - (V_m / V_m)) / (V_m / V_m)  # Factor de retención de la proteína A  
-k_B <- (t_R_B - (V_m / V_m)) / (V_m / V_m)  # Factor de retención de la proteína B  
+# El factor de retención es k = (t_R - t_M) / t_M, con t_M el tiempo muerto.
+k_A <- (t_R_A - t_M) / t_M  # Factor de retención de la proteína A
+k_B <- (t_R_B - t_M) / t_M  # Factor de retención de la proteína B
 
 # 2. Resolución (R) entre las dos proteínas  
 R <- 2 * (t_R_B - t_R_A) / (W_A + W_B)  # Resolución  
@@ -68,14 +74,20 @@ datos <- data.frame(
 )  
 
 # Gráfico de los picos cromatográficos  
-ggplot(datos, aes(x = Tiempo)) +  
-  geom_line(aes(y = Intensidad_A, color = "Proteína A"), size = 1) +  
-  geom_line(aes(y = Intensidad_B, color = "Proteína B"), size = 1) +  
+p <- ggplot(datos, aes(x = Tiempo)) +  
+  geom_line(aes(y = Intensidad_A, color = "Proteína A"), linewidth = 1) +  
+  geom_line(aes(y = Intensidad_B, color = "Proteína B"), linewidth = 1) +  
   labs(title = "Picos Cromatográficos de las Proteínas A y B",  
        x = "Tiempo (min)",  
        y = "Intensidad",  
        color = "Proteína") +  
-  theme_minimal()  
+  theme_minimal()
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_22_cromatografia.png", plot = p, width = 8, height = 6, dpi = 300)
 
 # --------------------------------------------------------------------------
 # Interpretación: Picos Cromatográficos de las Proteínas A y B

@@ -51,13 +51,19 @@ datos <- data.frame(
 )  
 
 # Gráfico de barras  
-ggplot(datos, aes(x = Fase, y = Concentracion, fill = Fase)) +  
+p <- ggplot(datos, aes(x = Fase, y = Concentracion, fill = Fase)) +  
   geom_bar(stat = "identity", color = "black") +  
   labs(title = "Concentración de Ácido Acético después de la Extracción",  
        x = "Fase",  
        y = "Concentración (g/L)",  
        fill = "Fase") +  
-  theme_minimal()  
+  theme_minimal()
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_08_acido_acetico.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------

@@ -56,5 +56,24 @@ cat("a) Masa de Na₂SO₄ cristalizado sin evaporación de agua:", round(masa_N
 cat("   Rendimiento de cristalización sin evaporación:", round(rendimiento_a, 2), "%\n\n")  
 
 cat("b) Masa de Na₂SO₄ cristalizado con evaporación del 10% del agua:", round(masa_Na2SO4_cristalizado_evaporacion, 2), "kg\n")  
-cat("   Rendimiento de cristalización con evaporación:", round(rendimiento_b, 2), "%\n")  
+cat("   Rendimiento de cristalización con evaporación:", round(rendimiento_b, 2), "%\n")
+
+# --------------------------------------------------------------------------
+# Nota: este script no produce ningún gráfico
+# --------------------------------------------------------------------------
+# Este ejemplo solo calcula y muestra resultados en la consola (masas de Na₂SO₄
+# cristalizado en kg y rendimientos en %, con y sin evaporación de agua).
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - Al enfriar una solución, solo cabe disuelta la masa que permite la
+#   solubilidad (19,4 g de Na₂SO₄ por cada 100 g de agua): el resto sale
+#   como cristales.
+# - Evaporar el 10 % del agua deja menos agua para retener soluto disuelto,
+#   así que cristaliza más y el rendimiento (en %) sube.
+# - La densidad (1,15 kg/L) convierte el volumen de solución en masa: sin
+#   ella no se puede pasar de litros a kilogramos.
+# - El rendimiento de este ejemplo se expresa sobre la masa de Na₂SO₄
+#   inicial, no sobre la masa de solución.
 

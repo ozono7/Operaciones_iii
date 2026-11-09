@@ -59,5 +59,23 @@ cat("a) Masa de proteína cristalizada sin evaporación de agua:", round(masa_pr
 cat("   Rendimiento de cristalización sin evaporación:", round(rendimiento_a, 2), "%\n\n")  
 
 cat("b) Masa de proteína cristalizada con evaporación del 5% del agua:", round(masa_proteina_cristalizada_evaporacion, 2), "kg\n")  
-cat("   Rendimiento de cristalización con evaporación:", round(rendimiento_b, 2), "%\n")  
+cat("   Rendimiento de cristalización con evaporación:", round(rendimiento_b, 2), "%\n")
+
+# --------------------------------------------------------------------------
+# Nota: este script no produce ningún gráfico
+# --------------------------------------------------------------------------
+# Este ejemplo solo calcula y muestra resultados en la consola (masas de proteína
+# cristalizada en kg y rendimientos en %, con y sin evaporación de agua).
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - Al enfriar una solución, solo cabe disuelta la masa que permite la
+#   solubilidad (aquí 5 g/L): el resto de la proteína sale como cristales.
+# - Evaporar el 5 % del agua reduce el volumen final y deja menos proteína
+#   disuelta, así que cristaliza un poco más y el rendimiento (en %) sube.
+# - La densidad (1,02 kg/L) convierte el volumen de solución en masa: sin
+#   ella no se puede pasar de litros a kilogramos.
+# - El rendimiento de este ejemplo se expresa sobre la masa de proteína
+#   inicial, no sobre la masa de solución.
 

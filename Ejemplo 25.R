@@ -29,15 +29,22 @@ datos <- data.frame(
 )  
 
 # 1. Gráfica de calibración (log(Tamaño) vs. Distancia Migrada)  
-ggplot(datos, aes(x = Distancia, y = log10(Tamano))) +  
-  geom_point(size = 3, color = "red") +  
+p <- ggplot(datos, aes(x = Distancia, y = log10(Tamano))) +  
+  geom_point(size = 3, color = "red") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
   labs(  
     title = "Gráfica de Calibración para Electroforesis de ADN",  
     subtitle = "Logaritmo del Tamaño del Fragmento vs. Distancia Migrada",  
     x = "Distancia Migrada (cm)",  
     y = "Log10(Tamaño en pb)"  
   ) +  
-  theme_minimal()  
+  theme_minimal()
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_25_adn.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -51,8 +58,8 @@ ggplot(datos, aes(x = Distancia, y = log10(Tamano))) +
 #   500 pb.
 # - Lo que se aprecia: cuatro puntos que bajan de izquierda a derecha: el
 #   Fragmento A (500 pb) migró 4,5 cm, el B (1000 pb) 3,5 cm, el C (2000 pb)
-#   2,5 cm y el D (5000 pb) solo 1,5 cm. La recta de calibración tiene pendiente
-#   negativa.
+#   2,5 cm y el D (5000 pb) solo 1,5 cm. La línea recta del gráfico es la recta
+#   de regresión ajustada con estos cuatro puntos, y tiene pendiente negativa.
 # - Qué significa: en un gel de agarosa los fragmentos pequeños de ADN se mueven
 #   más rápido y llegan más lejos, mientras que los grandes avanzan poco. Por
 #   eso la recta permite estimar el tamaño en pares de bases de un fragmento

@@ -42,6 +42,13 @@ calcular_composiciones <- function(composicion_inicial, K) {
                        PEG = composicion_inicial["PEG"],  
                        Proteinas = C_PEG)  
   
+  # Cada composición se normaliza dentro de su fase para que las tres
+  # fracciones másicas sumen 1, como exige un diagrama ternario. La relación
+  # K del archivo reparte la masa de proteína entre las fases (modelo
+  # simplificado): primero se reparte la masa y después se normaliza.
+  composicion_fosfato <- composicion_fosfato / sum(composicion_fosfato)
+  composicion_PEG <- composicion_PEG / sum(composicion_PEG)
+
   return(list(Fosfato = composicion_fosfato, PEG = composicion_PEG))  
 }  
 
@@ -59,7 +66,7 @@ datos <- data.frame(
 )  
 
 # Diagrama ternario  
-ggtern(data = datos, aes(x = Agua, y = PEG, z = Proteinas)) +  
+p <- ggtern(data = datos, aes(x = Agua, y = PEG, z = Proteinas)) +  
   geom_point(aes(color = Fase), size = 4) +  
   labs(title = "Diagrama Ternario: Extracción de Proteínas usando ABS",  
        x = "Agua",  
@@ -67,7 +74,13 @@ ggtern(data = datos, aes(x = Agua, y = PEG, z = Proteinas)) +
        z = "Proteínas",  
        color = "Fase") +  
   theme_rgbw() +  
-  theme(legend.position = "right")  
+  theme(legend.position = "right")
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_11_ternario_abs.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -107,4 +120,6 @@ print(composicion_PEG)
 #   una composición y las tres fracciones másicas (adimensionales) suman 1.
 # - La relación de distribución K (adimensional) dice hacia qué fase migra el
 #   soluto: con K = 3,2 las proteínas se concentran en la fase rica en PEG.
+# - Las fracciones de cada fase se normalizan para que sumen 1: en el diagrama
+#   ternario cada punto es la composición dentro de su fase.
 

@@ -56,6 +56,13 @@ calcular_composiciones <- function(composicion_inicial, K, etapas) {
     masa_total_antioxidantes <- C_agua  
   }  
   
+  # Cada fila se normaliza dentro de su fase para que las tres fracciones
+  # másicas sumen 1, como exige un diagrama ternario. En este modelo
+  # simplificado la fase rica en etanol solo recibe antioxidantes, así que
+  # al normalizar queda en la esquina de los antioxidantes.
+  composicion_agua <- composicion_agua / rowSums(composicion_agua)
+  composicion_etanol <- composicion_etanol / rowSums(composicion_etanol)
+
   return(list(Agua = composicion_agua, Etanol = composicion_etanol, Eficiencia = eficiencia))  
 }  
 
@@ -75,7 +82,7 @@ datos <- data.frame(
 )  
 
 # Diagrama ternario  
-ggtern(data = datos, aes(x = Agua, y = Solidos, z = Antioxidantes)) +  
+p <- ggtern(data = datos, aes(x = Agua, y = Solidos, z = Antioxidantes)) +  
   geom_point(aes(color = Fase, shape = as.factor(Etapa)), size = 4) +  
   labs(title = "Diagrama Ternario: Extracción de Antioxidantes",  
        x = "Agua",  
@@ -84,7 +91,13 @@ ggtern(data = datos, aes(x = Agua, y = Solidos, z = Antioxidantes)) +
        color = "Fase",  
        shape = "Etapa") +  
   theme_rgbw() +  
-  theme(legend.position = "right")  
+  theme(legend.position = "right")
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_12_ternario_antioxidantes.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -104,6 +117,8 @@ ggtern(data = datos, aes(x = Agua, y = Solidos, z = Antioxidantes)) +
 # - Lo que se aprecia: cuatro puntos, dos por etapa. En cada etapa el punto de
 #   la fase rica en etanol está más cerca de la esquina de los antioxidantes
 #   que el punto de la fase rica en agua: el etanol se lleva los antioxidantes.
+#   La fase rica en etanol de este modelo solo contiene antioxidantes, así que
+#   su punto cae en la esquina de los antioxidantes del triángulo.
 # - Qué significa: cada etapa extrae una parte de los antioxidantes que quedaban
 #   en la fase acuosa y los pasa al etanol. La eficiencia de cada etapa (en %)
 #   se imprime en la consola: la segunda etapa trabaja sobre lo que dejó la
@@ -127,4 +142,6 @@ print(eficiencia)
 # - La relación de distribución K (adimensional, aquí K = 3,5) dice hacia qué
 #   fase migra el soluto, y la eficiencia de cada etapa (en %) mide el
 #   resultado etapa por etapa.
+# - Las fracciones de cada fase se normalizan para que sumen 1, como exige
+#   un diagrama ternario.
 

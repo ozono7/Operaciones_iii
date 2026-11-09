@@ -31,9 +31,10 @@ x_salida <- (flujo_gas / flujo_liquido) * (y_entrada - y_salida)  # Fracción mo
 # Representa la relación entre las fracciones molares de A en el gas y el líquido en equilibrio.
 linea_equilibrio <- function(x) pendiente_equilibrio * x
 
-# Línea de operación: y = y_entrada - (G/L) * (x - x_entrada)
+# Línea de operación: y = y_salida + (L/G) * (x - x_entrada)
 # Representa la relación entre las fracciones molares de A en el gas y el líquido durante la operación.
-linea_operacion <- function(x) y_entrada - (flujo_gas / flujo_liquido) * (x - x_entrada)
+# Pasa por (x_entrada, y_salida) arriba de la torre y por (x_salida, y_entrada) abajo.
+linea_operacion <- function(x) y_salida + (flujo_liquido / flujo_gas) * (x - x_entrada)
 
 # ---------------------- Generar puntos para graficar ----------------------
 # Se generan valores de x (fracción molar de A en el líquido) desde 0 hasta x_salida.
@@ -44,31 +45,32 @@ y_equilibrio <- linea_equilibrio(x_valores)
 y_operacion <- linea_operacion(x_valores)
 
 # ---------------------- Cálculo del número de etapas ----------------------
-# Inicialización de variables para el cálculo de etapas.
-x_etapa <- x_salida  # Comenzamos desde la fracción molar de A en el líquido de salida.
-y_etapa <- linea_operacion(x_etapa)  # Fracción molar de A en el gas correspondiente.
-etapas <- data.frame(x = numeric(), y = numeric())  # Dataframe para almacenar las etapas.
+# Se empieza arriba de la torre, en el punto (x_entrada, y_salida), y se
+# construye la escalera etapa por etapa:
+# 1. Se mueve en horizontal hasta la línea de equilibrio (misma y, nueva x).
+# 2. Se mueve en vertical hasta la línea de operación (misma x, nueva y).
+# Esto se repite hasta llegar a la fracción molar de A en el gas de entrada.
+x_etapa <- x_entrada  # Fracción molar de A en el líquido que entra (arriba).
+y_etapa <- y_salida  # Fracción molar de A en el gas que sale (arriba).
 
 lista_etapas <- list()  # Lista temporal para almacenar las coordenadas de las etapas.
-iteracion <- 1  # Contador de iteraciones.
-max_iteraciones <- 50  # Número máximo de iteraciones para evitar bucles infinitos.
+lista_etapas[[1]] <- c(x_etapa, y_etapa)  # Punto inicial en la línea de operación.
+iteracion <- 2  # Contador de puntos guardados.
+max_iteraciones <- 50  # Número máximo de etapas para evitar bucles infinitos.
+num_etapas <- 0  # Contador de etapas teóricas.
 
-# Bucle para calcular las etapas:
-# 1. Se mueve verticalmente desde la línea de operación hasta la línea de equilibrio.
-# 2. Se mueve horizontalmente desde la línea de equilibrio hasta la línea de operación.
-# Esto se repite hasta que la fracción molar de A en el gas (y_etapa) sea menor o igual a y_salida.
-while (y_etapa > y_salida && iteracion <= max_iteraciones) {
-  # Guardar la etapa actual (punto en la línea de operación).
-  lista_etapas[[iteracion]] <- c(x_etapa, y_etapa)
-  iteracion <- iteracion + 1
-  
-  # Calcular la siguiente etapa en la línea de equilibrio (movimiento vertical).
+while (y_etapa < y_entrada && num_etapas < max_iteraciones) {
+  # Movimiento horizontal hasta la línea de equilibrio.
   x_etapa <- y_etapa / pendiente_equilibrio
   lista_etapas[[iteracion]] <- c(x_etapa, y_etapa)
   iteracion <- iteracion + 1
-  
-  # Calcular la siguiente etapa en la línea de operación (movimiento horizontal).
+
+  # Movimiento vertical hasta la línea de operación.
   y_etapa <- linea_operacion(x_etapa)
+  lista_etapas[[iteracion]] <- c(x_etapa, y_etapa)
+  iteracion <- iteracion + 1
+
+  num_etapas <- num_etapas + 1
 }
 
 # Convertir la lista de etapas a un data.frame para facilitar su uso en ggplot.
@@ -76,12 +78,12 @@ etapas <- as.data.frame(do.call(rbind, lista_etapas))
 colnames(etapas) <- c("x", "y")
 
 # ---------------------- Graficar el diagrama McCabe-Thiele ----------------------
-ggplot() +
+p <- ggplot() +
   # Línea de equilibrio (azul, punteada).
-  geom_line(aes(x = x_valores, y = y_equilibrio), color = "blue", size = 1, linetype = "dashed") +
+  geom_line(aes(x = x_valores, y = y_equilibrio), color = "blue", linewidth = 1, linetype = "dashed") +
   
   # Línea de operación (roja, continua).
-  geom_line(aes(x = x_valores, y = y_operacion), color = "red", size = 1) +
+  geom_line(aes(x = x_valores, y = y_operacion), color = "red", linewidth = 1) +
   
   # Puntos de las etapas (negros).
   geom_point(data = etapas, aes(x = x, y = y), color = "black", size = 3) +
@@ -94,6 +96,12 @@ ggplot() +
        x = "Fracción molar de A en líquido",
        y = "Fracción molar de A en gas") +
   theme_minimal()
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_07_mccabe_thiele.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -111,11 +119,10 @@ ggplot() +
 # - Qué significa: cada escalón completo de la escalera es una etapa teórica
 #   de la torre. Contar los escalones da el número de etapas necesarias para
 #   bajar la fracción de A en el gas desde 0,02 (entrada) hasta 0,002 (salida).
+#   Con los datos del archivo, la escalera tiene 9 escalones: 9 etapas teóricas.
 #   Cuanto más separadas estén las dos líneas, menos escalones hacen falta.
 
 # ---------------------- Mostrar el número de etapas ----------------------
-# El número de etapas es la mitad del número de puntos en la lista de etapas.
-num_etapas <- nrow(etapas) / 2
 cat("Número de etapas requeridas:", num_etapas, "\n")
 
 # --------------------------------------------------------------------------

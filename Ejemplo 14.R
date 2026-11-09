@@ -39,37 +39,45 @@ calcular_extraccion <- function(masa_materia_prima, porcentaje_compuestos_solubl
   return(antioxidantes_extraidos)  
 }  
 
-# Función para calcular la concentración de antioxidantes después de la concentración  
-calcular_concentracion <- function(antioxidantes_extraidos, factor_concentracion) {  
-  concentracion_final <- antioxidantes_extraidos * factor_concentracion  
-  return(concentracion_final)  
+# Función para calcular la cantidad de antioxidantes en el extracto concentrado
+calcular_cantidad_concentrada <- function(antioxidantes_extraidos, factor_concentracion) {  
+  # Es una masa en gramos, no una concentración en g/L: el archivo no indica
+  # ningún volumen final del extracto, así que no se puede pasar a g/L.
+  cantidad_concentrada <- antioxidantes_extraidos * factor_concentracion
+  return(cantidad_concentrada)
 }  
 
 # Aplicar las funciones  
 antioxidantes_extraidos <- calcular_extraccion(masa_materia_prima, porcentaje_compuestos_solubles, concentracion_antioxidantes, eficiencia_extraccion)  
-concentracion_final <- calcular_concentracion(antioxidantes_extraidos, factor_concentracion)  
+cantidad_concentrada <- calcular_cantidad_concentrada(antioxidantes_extraidos, factor_concentracion)  
 
 # Crear un data frame para graficar  
 tiempo <- seq(0, 120, by = 10)  # Tiempo en minutos  
 extraccion <- ifelse(tiempo <= tiempo_extraccion, antioxidantes_extraidos * (1 - exp(-0.05 * tiempo)), antioxidantes_extraidos)  # Simulación de la extracción  
-concentracion <- ifelse(tiempo > tiempo_extraccion, concentracion_final * (1 - exp(-0.03 * (tiempo - tiempo_extraccion))), NA)  # Simulación de la concentración  
+cantidad_concentrada_curva <- ifelse(tiempo > tiempo_extraccion, cantidad_concentrada * (1 - exp(-0.03 * (tiempo - tiempo_extraccion))), NA)  # Simulación del extracto concentrado
 
 datos <- data.frame(  
   Tiempo = tiempo,  
   Extraccion = extraccion,  
-  Concentracion = concentracion  
+  Cantidad_Concentrada = cantidad_concentrada_curva  
 )  
 
 # Gráfico de extracción y concentración  
-ggplot(datos, aes(x = Tiempo)) +  
-  geom_line(aes(y = Extraccion, color = "Extracción"), size = 1) +  
-  geom_line(aes(y = Concentracion, color = "Concentración"), size = 1) +  
+p <- ggplot(datos, aes(x = Tiempo)) +  
+  geom_line(aes(y = Extraccion, color = "Extracción"), linewidth = 1) +  
+  geom_line(aes(y = Cantidad_Concentrada, color = "Extracto concentrado"), linewidth = 1) +  
   labs(title = "Extracción y Concentración de Antioxidantes",  
        x = "Tiempo (minutos)",  
        y = "Cantidad de Antioxidantes (g)",  
        color = "Proceso") +  
   theme_minimal() +  
-  theme(legend.position = "right")  
+  theme(legend.position = "right")
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_14_antioxidantes.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -77,23 +85,25 @@ ggplot(datos, aes(x = Tiempo)) +
 # --------------------------------------------------------------------------
 # - Eje X: Tiempo, en minutos (min). Va de 0 a 120 minutos; la extracción dura
 #   los primeros 60 minutos y la concentración empieza después.
-# - Eje Y: Cantidad de antioxidantes, en gramos (g), según la etiqueta del eje.
-#   La curva de extracción muestra los gramos extraídos de las cáscaras; la
-#   segunda curva muestra el valor tras aplicar el factor de concentración.
-#   Ojo: el archivo llama "concentración" a esta segunda curva, pero la calcula
-#   y la grafica en gramos (g), no en g/L, porque no indica ningún volumen final.
+# - Eje Y: Cantidad de antioxidantes, en gramos (g). Las dos curvas son masas,
+#   no concentraciones: la curva de extracción muestra los gramos extraídos de
+#   las cáscaras y la segunda curva muestra esos mismos gramos multiplicados
+#   por el factor de concentración (5). No es una concentración en g/L, porque
+#   el archivo no indica ningún volumen final del extracto.
 # - Lo que se aprecia: la curva de extracción sube rápido al principio y se
 #   aplana al llegar a la cantidad máxima extraíble con una eficiencia del 70 %;
-#   después, la segunda curva sube desde ese valor hasta un valor mayor, según
-#   el factor de concentración (5) del archivo.
+#   después, la segunda curva (extracto concentrado) sube desde cero hasta
+#   acercarse a 14 g, que es la cantidad extraída (2,8 g) por el factor 5.
 # - Qué significa: de 100 g de cáscaras solo una parte son antioxidantes
 #   extraíbles, y el extracto se concentra después de la extracción. La segunda
 #   curva es un modelo simplificado del archivo (cantidad extraída por un
-#   factor), no una medición de concentración en g/L.
+#   factor, en gramos), no una medición de concentración en g/L: concentrar
+#   no crea más antioxidante, solo lo reúne en menos volumen.
 
 # Mostrar resultados en la consola  
 cat("Cantidad de antioxidantes extraídos:", round(antioxidantes_extraidos, 2), "g\n")  
-cat("Concentración final de antioxidantes:", round(concentracion_final, 2), "g\n")  
+cat("Cantidad de antioxidantes en el extracto concentrado:", round(cantidad_concentrada, 2), "g\n")
+# (No es una concentración en g/L: el archivo no indica el volumen final del extracto.)  
 
 # --------------------------------------------------------------------------
 # Qué aprendimos
@@ -105,7 +115,7 @@ cat("Concentración final de antioxidantes:", round(concentracion_final, 2), "g\
 #   en %) limita cuántos antioxidantes se recuperan de los que había en la
 #   materia prima.
 # - Concentrar un extracto aumenta su contenido por unidad de volumen, pero no
-#   crea más antioxidante: en este archivo la concentración se modela de forma
-#   simplificada como la cantidad extraída por un factor (5), y se grafica en
-#   gramos (g), no en g/L.
+#   crea más antioxidante: en este archivo el extracto concentrado se modela
+#   de forma simplificada como la cantidad extraída por un factor (5), y se
+#   grafica en gramos (g), no en g/L, porque no se indica el volumen final.
 

@@ -22,7 +22,7 @@ concentracion_aceite <- 0.20  # Fracción de aceite en la harina
 concentracion_inertes <- 0.80  # Fracción de sólidos inertes en la harina  
 relacion_solvente_solido <- 2  # Relación solvente/sólido (kg benceno/kg harina)  
 q_max <- 0.5  # Capacidad máxima de sorción (kg/kg)  
-K <- 2  # Constante de equilibrio (L/kg)  
+K <- 2  # Constante de equilibrio ((kg/kg)^-1)  
 etapas <- 3  # Número de etapas de extracción  
 
 # Función de la isoterma de Langmuir  
@@ -46,7 +46,7 @@ calcular_extraccion <- function(masa_harina, concentracion_aceite, relacion_solv
   aceite_restante[1] <- masa_aceite_inicial  
   
   for (i in 1:etapas) {  
-    # Concentración de aceite en la fase líquida (kg/L)  
+    # Concentración de aceite en la fase líquida (kg de aceite/kg de benceno)
     C <- aceite_restante[i] / masa_benceno  
     
     # Cantidad de aceite adsorbido por kg de inertes (kg/kg)  
@@ -72,7 +72,7 @@ aceite_restante <- resultados$aceite_restante
 eficiencia <- resultados$eficiencia  
 
 # Crear un data frame para graficar la isoterma de sorción  
-C <- seq(0, 1, by = 0.01)  # Concentración de aceite en la fase líquida (kg/L)  
+C <- seq(0, 1, by = 0.01)  # Concentración de aceite en la fase líquida (kg/kg)  
 q <- isoterma_langmuir(C, q_max, K)  # Cantidad de aceite adsorbido (kg/kg)  
 
 datos_isoterma <- data.frame(  
@@ -81,19 +81,27 @@ datos_isoterma <- data.frame(
 )  
 
 # Gráfico de la isoterma de sorción  
-ggplot(datos_isoterma, aes(x = Concentracion, y = Adsorcion)) +  
-  geom_line(color = "blue", size = 1) +  
+p_isoterma <- ggplot(datos_isoterma, aes(x = Concentracion, y = Adsorcion)) +  
+  geom_line(color = "blue", linewidth = 1) +  
   labs(title = "Isoterma de Sorción de Langmuir",  
-       x = "Concentración de Aceite en la Fase Líquida (kg/L)",  
-       y = "Cantidad de Aceite Adsorbido (kg/kg)") +  
-  theme_minimal()  
+       x = "Concentración de Aceite en la Fase Líquida (kg/kg)",  
+       y = "Cantidad de Aceite Adsorbido (kg/kg)") +
+  theme_minimal()
+
+# Mostrar gráfico
+print(p_isoterma)
+
+# Guardar el gráfico
+ggsave("ejemplo_16_isoterma.png", plot = p_isoterma, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
 # Interpretación: Isoterma de Sorción de Langmuir
 # --------------------------------------------------------------------------
-# - Eje X: Concentración de aceite en la fase líquida, en kilogramos por litro
-#   (kg/L). Va de 0 a 1 kg/L.
+# - Eje X: Concentración de aceite en la fase líquida, en kilogramos de aceite
+#   por kilogramo de benceno (kg/kg). Va de 0 a 1 kg/kg: es la masa de aceite
+#   por cada kilogramo de benceno, no por litro, porque el archivo calcula
+#   C como aceite restante entre masa de benceno.
 # - Eje Y: Cantidad de aceite adsorbido, en kilogramos de aceite por kilogramo
 #   de sólido (kg/kg). Indica cuánto aceite retiene cada kilogramo de inertes.
 # - Lo que se aprecia: la curva sube con pendiente fuerte al principio y luego
@@ -112,13 +120,19 @@ datos_extraccion <- data.frame(
 )  
 
 # Gráfico de la extracción en función del número de etapas  
-ggplot(datos_extraccion, aes(x = Etapa, y = Aceite_Extraido)) +  
-  geom_line(color = "red", size = 1) +  
+p_extraccion <- ggplot(datos_extraccion, aes(x = Etapa, y = Aceite_Extraido)) +  
+  geom_line(color = "red", linewidth = 1) +  
   geom_point(color = "red", size = 3) +  
   labs(title = "Extracción de Aceite en Múltiples Etapas",  
        x = "Número de Etapas",  
-       y = "Aceite Extraído (kg)") +  
-  theme_minimal()  
+       y = "Aceite Extraído (kg)") +
+  theme_minimal()
+
+# Mostrar gráfico
+print(p_extraccion)
+
+# Guardar el gráfico
+ggsave("ejemplo_16_extraccion_etapas.png", plot = p_extraccion, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------

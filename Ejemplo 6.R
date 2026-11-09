@@ -83,13 +83,13 @@ df_saturacion <- subset(df_hr, HR == 1)  # Curva de saturación (HR = 100%)
 # Crear gráfico
 p <- ggplot() +
   # Líneas de humedad relativa
-  geom_line(data = df_hr, aes(x = Tdb, y = W, group = HR, color = factor(HR * 100)), size = 0.8) +
+  geom_line(data = df_hr, aes(x = Tdb, y = W, group = HR, color = factor(HR * 100)), linewidth = 0.8) +
   
   # Curva de saturación
-  geom_line(data = df_saturacion, aes(x = Tdb, y = W), color = "blue", size = 1.5) +
+  geom_line(data = df_saturacion, aes(x = Tdb, y = W), color = "blue", linewidth = 1.5) +
   
   # Proceso de humidificación
-  geom_segment(aes(x = Tdb1, y = W1_g, xend = Tdb2, yend = W2_g), arrow = arrow(length = unit(0.3, "cm")), color = "black", size = 1) +
+  geom_segment(aes(x = Tdb1, y = W1_g, xend = Tdb2, yend = W2_g), arrow = arrow(length = unit(0.3, "cm")), color = "black", linewidth = 1) +
   
   # Puntos inicial y final
   geom_point(aes(x = Tdb1, y = W1_g), color = "blue", size = 4) +
@@ -109,6 +109,9 @@ p <- ggplot() +
 
 # Mostrar gráfico
 print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_06_carta_psicrometrica.png", plot = p, width = 8, height = 6, dpi = 300)
 
 # --------------------------------------------------------------------------
 # Interpretación: Proceso de Humidificación en el Diagrama Psicrométrico

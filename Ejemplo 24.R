@@ -29,15 +29,22 @@ datos <- data.frame(
 )  
 
 # 1. Gráfica de calibración (log(Peso Molecular) vs. Distancia Migrada)  
-ggplot(datos, aes(x = Distancia, y = log10(Peso_Molecular))) +  
-  geom_point(size = 3, color = "blue") +  
+p <- ggplot(datos, aes(x = Distancia, y = log10(Peso_Molecular))) +  
+  geom_point(size = 3, color = "blue") +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  
   labs(  
     title = "Gráfica de Calibración para Electroforesis SDS-PAGE",  
     subtitle = "Logaritmo del Peso Molecular vs. Distancia Migrada",  
     x = "Distancia Migrada (cm)",  
     y = "Log10(Peso Molecular)"  
   ) +  
-  theme_minimal()  
+  theme_minimal()
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_24_sds_page.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -51,8 +58,9 @@ ggplot(datos, aes(x = Distancia, y = log10(Peso_Molecular))) +
 #   valor de 1,1 a unos 12 kDa.
 # - Lo que se aprecia: tres puntos que bajan de izquierda a derecha: la
 #   Albúmina (66 kDa) migró solo 2,5 cm, la Mioglobina (17 kDa) migró 5,0 cm y
-#   el Citocromo C (12 kDa) llegó más lejos, 6,0 cm. La recta de calibración
-#   tiene pendiente negativa.
+#   el Citocromo C (12 kDa) llegó más lejos, 6,0 cm. La línea recta del gráfico
+#   es la recta de regresión ajustada con estos tres puntos, y tiene pendiente
+#   negativa.
 # - Qué significa: en SDS-PAGE las proteínas pequeñas atraviesan mejor los poros
 #   del gel y migran más lejos, mientras que las grandes se quedan atrás. Por
 #   eso la recta permite estimar el peso molecular de una proteína desconocida

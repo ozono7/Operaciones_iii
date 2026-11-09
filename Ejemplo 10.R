@@ -42,6 +42,13 @@ calcular_composiciones <- function(composicion_inicial, K) {
                            Benceno = composicion_inicial["Benceno"],  
                            Acido_benzoico = C_benceno)  
   
+  # Cada composición se normaliza dentro de su fase para que las tres
+  # fracciones másicas sumen 1, como exige un diagrama ternario. La relación
+  # K del archivo reparte la masa de ácido entre las fases (modelo
+  # simplificado): primero se reparte la masa y después se normaliza.
+  composicion_agua <- composicion_agua / sum(composicion_agua)
+  composicion_benceno <- composicion_benceno / sum(composicion_benceno)
+
   return(list(Agua = composicion_agua, Benceno = composicion_benceno))  
 }  
 
@@ -59,7 +66,7 @@ datos <- data.frame(
 )  
 
 # Diagrama ternario  
-ggtern(data = datos, aes(x = Agua, y = Benceno, z = Acido_benzoico)) +  
+p <- ggtern(data = datos, aes(x = Agua, y = Benceno, z = Acido_benzoico)) +  
   geom_point(aes(color = Fase), size = 4) +  
   labs(title = "Diagrama Ternario: Extracción de Ácido Benzoico",  
        x = "Agua",  
@@ -67,7 +74,13 @@ ggtern(data = datos, aes(x = Agua, y = Benceno, z = Acido_benzoico)) +
        z = "Ácido benzoico",  
        color = "Fase") +  
   theme_rgbw() +  
-  theme(legend.position = "right")  
+  theme(legend.position = "right")
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_10_ternario_benzoico.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -104,4 +117,6 @@ print(composicion_benceno)
 #   de una esquina significa que ese componente domina la mezcla.
 # - La relación de distribución K (adimensional) dice hacia qué fase migra el
 #   soluto: con K = 4,5 el ácido benzoico se concentra en el benceno.
+# - Las fracciones de cada fase se normalizan para que sumen 1: en el diagrama
+#   ternario cada punto es la composición dentro de su fase.
 

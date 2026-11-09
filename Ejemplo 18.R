@@ -61,5 +61,24 @@ rendimiento_b <- (masa_cristales_evaporacion / masa_solucion) * 100  # %
 
 # Mostrar resultados en la consola  
 cat("a) Rendimiento de cristales sin evaporación de agua:", round(rendimiento_a, 2), "%\n")  
-cat("b) Rendimiento de cristales con evaporación del 3% del peso total de la solución:", round(rendimiento_b, 2), "%\n")  
+cat("b) Rendimiento de cristales con evaporación del 3% del peso total de la solución:", round(rendimiento_b, 2), "%\n")
+
+# --------------------------------------------------------------------------
+# Nota: este script no produce ningún gráfico
+# --------------------------------------------------------------------------
+# Este ejemplo solo calcula y muestra resultados en la consola (rendimientos
+# de cristalización en %, con y sin evaporación de agua).
+
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - Al enfriar una solución, solo cabe disuelta la masa que permite la
+#   solubilidad: el resto del soluto sale como cristales.
+# - Los cristales de Na₂SO₄·10H₂O pesan más que el Na₂SO₄ anhidro que
+#   contienen, porque cada unidad lleva 10 moléculas de agua: la masa de
+#   cristales se obtiene con el cociente de masas molares (322,19/142,04).
+# - Evaporar parte del agua antes de cristalizar deja menos agua para retener
+#   soluto disuelto, así que cristaliza más y el rendimiento (en %) sube.
+# - El rendimiento de este ejemplo se expresa sobre la masa de solución
+#   inicial, no sobre la masa de soluto inicial.
 

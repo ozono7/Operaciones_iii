@@ -33,8 +33,10 @@ masa_inertes <- masa_residuo * concentracion_inertes  # Masa de sólidos inertes
 # Masa de disolución retenida  
 masa_disolucion_retenida <- masa_inertes * retencion  # kg  
 
-# Masa total de disolución (agua + antibiótico extraído)  
-masa_disolucion_total <- masa_agua + masa_antibiotico  # kg  
+# Masa total de disolución (agua añadida + agua del residuo + antibiótico)
+# El agua que trae el residuo se une a la disolución: si no se cuenta, el
+# balance de agua del refinado no cierra.
+masa_disolucion_total <- masa_agua + masa_agua_residuo + masa_antibiotico  # kg
 
 # Masa de extracto (flujo superior)  
 masa_extracto <- masa_disolucion_total - masa_disolucion_retenida  # kg  
@@ -42,10 +44,14 @@ masa_extracto <- masa_disolucion_total - masa_disolucion_retenida  # kg
 # Masa de refinado (flujo inferior)  
 masa_refinado <- masa_residuo + masa_agua - masa_extracto  # kg  
 
-# Composición del refinado  
-masa_antibiotico_refinado <- masa_antibiotico - (masa_antibiotico * (masa_extracto / masa_disolucion_total))  # kg  
-masa_agua_refinado <- masa_agua_residuo + masa_agua - (masa_disolucion_total - masa_disolucion_retenida)  # kg  
-masa_inertes_refinado <- masa_inertes  # kg  
+# Composición del refinado
+# El extracto y la disolución retenida tienen la misma composición (disolución
+# uniforme): cada uno se lleva antibiótico y agua en proporción a su masa.
+masa_antibiotico_extracto <- masa_antibiotico * (masa_extracto / masa_disolucion_total)  # kg
+masa_antibiotico_refinado <- masa_antibiotico - masa_antibiotico_extracto  # kg
+masa_agua_extracto <- masa_extracto - masa_antibiotico_extracto  # kg
+masa_agua_refinado <- masa_agua_residuo + masa_agua - masa_agua_extracto  # kg
+masa_inertes_refinado <- masa_inertes  # kg
 
 concentracion_antibiotico_refinado <- masa_antibiotico_refinado / masa_refinado  # Fracción de antibiótico en el refinado  
 concentracion_agua_refinado <- masa_agua_refinado / masa_refinado  # Fracción de agua en el refinado  

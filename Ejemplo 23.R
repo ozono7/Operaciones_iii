@@ -22,6 +22,11 @@ d <- 1.2  # Diámetro de la columna (cm)
 V_s <- 15  # Volumen de la fase estacionaria (mL)  
 V_m <- 50  # Volumen de la fase móvil (mL)  
 
+# Tiempo muerto de la columna: lo que tarda en salir un compuesto no retenido.
+# Es un dato del problema (1 min): no se puede deducir de V_m, porque para
+# eso haría falta el caudal de fase móvil, que el archivo no indica.
+t_M <- 1  # Tiempo muerto (min)
+
 # Datos de las proteínas  
 tR_Quimasa <- 8  # Tiempo de retención de la Quimasa (min)  
 W_Quimasa <- 1.2  # Ancho de pico de la Quimasa (min)  
@@ -30,8 +35,9 @@ W_Lactoperoxidasa <- 1.8  # Ancho de pico de la Lactoperoxidasa (min)
 
 # Cálculos  
 # 1. Factor de retención (k) para cada proteína  
-k_Quimasa <- (tR_Quimasa - (V_m / V_m)) / (V_m / V_m)  
-k_Lactoperoxidasa <- (tR_Lactoperoxidasa - (V_m / V_m)) / (V_m / V_m)  
+# El factor de retención es k = (t_R - t_M) / t_M, con t_M el tiempo muerto.
+k_Quimasa <- (tR_Quimasa - t_M) / t_M  
+k_Lactoperoxidasa <- (tR_Lactoperoxidasa - t_M) / t_M  
 
 # 2. Resolución (R) entre las dos proteínas  
 R <- 2 * (tR_Lactoperoxidasa - tR_Quimasa) / (W_Quimasa + W_Lactoperoxidasa)  
@@ -70,9 +76,9 @@ datos <- data.frame(
 )  
 
 # Graficar los picos cromatográficos  
-ggplot(datos, aes(x = Tiempo)) +  
-  geom_line(aes(y = Quimasa, color = "Quimasa"), size = 1) +  
-  geom_line(aes(y = Lactoperoxidasa, color = "Lactoperoxidasa"), size = 1) +  
+p <- ggplot(datos, aes(x = Tiempo)) +  
+  geom_line(aes(y = Quimasa, color = "Quimasa"), linewidth = 1) +  
+  geom_line(aes(y = Lactoperoxidasa, color = "Lactoperoxidasa"), linewidth = 1) +  
   labs(  
     title = "Picos Cromatográficos de Quimasa y Lactoperoxidasa",  
     subtitle = "Separación por Cromatografía de Intercambio Iónico",  
@@ -81,7 +87,13 @@ ggplot(datos, aes(x = Tiempo)) +
     color = "Proteína"  
   ) +  
   theme_minimal() +  
-  theme(legend.position = "top")  
+  theme(legend.position = "top")
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_23_quimasa_lactoperoxidasa.png", plot = p, width = 8, height = 6, dpi = 300)
 
 # --------------------------------------------------------------------------
 # Interpretación: Picos Cromatográficos de Quimasa y Lactoperoxidasa

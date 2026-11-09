@@ -26,8 +26,13 @@ eficiencia_desorcion <- 0.8  # Eficiencia de desorción (80%)
 
 # Función para calcular la cantidad de plomo adsorbido  
 calcular_adsorcion <- function(C0, qmax, K, m_adsorbente, V_solucion) {  
-  # Concentración de equilibrio (Langmuir)  
-  Ce <- C0 / (1 + K * qmax * m_adsorbente / V_solucion)  
+  # Concentración de equilibrio: el balance de masa V*(C0 - Ce) = m*q junto
+  # con la isoterma de Langmuir q = qmax*K*Ce/(1 + K*Ce) lleva a la ecuación
+  # cuadrática K*Ce^2 + (1 + m*qmax*K/V - C0*K)*Ce - C0 = 0, de la que se
+  # toma la raíz positiva. Así el plomo que sale de la solución es
+  # exactamente el que queda adsorbido en el carbón.
+  coef_b <- 1 + m_adsorbente * qmax * K / V_solucion - C0 * K
+  Ce <- (-coef_b + sqrt(coef_b^2 + 4 * K * C0)) / (2 * K)
   
   # Cantidad de plomo adsorbido  
   q <- qmax * K * Ce / (1 + K * Ce)  
@@ -62,15 +67,21 @@ datos <- data.frame(
 )  
 
 # Gráfico de adsorción y desorción  
-ggplot(datos, aes(x = Tiempo)) +  
-  geom_line(aes(y = Adsorcion, color = "Adsorción"), size = 1) +  
-  geom_line(aes(y = Desorcion, color = "Desorción"), size = 1) +  
+p <- ggplot(datos, aes(x = Tiempo)) +  
+  geom_line(aes(y = Adsorcion, color = "Adsorción"), linewidth = 1) +  
+  geom_line(aes(y = Desorcion, color = "Desorción"), linewidth = 1) +  
   labs(title = "Adsorción y Desorción de Plomo en Carbón Activado",  
        x = "Tiempo (minutos)",  
        y = "Cantidad de Plomo (mg)",  
        color = "Proceso") +  
   theme_minimal() +  
-  theme(legend.position = "right")  
+  theme(legend.position = "right")
+
+# Mostrar gráfico
+print(p)
+
+# Guardar el gráfico
+ggsave("ejemplo_13_plomo.png", plot = p, width = 8, height = 6, dpi = 300)
 
 
 # --------------------------------------------------------------------------
@@ -89,6 +100,9 @@ ggplot(datos, aes(x = Tiempo)) +
 #   K = 0,1 L/mg según el archivo), y después puede regenerarse parcialmente
 #   liberando el plomo adsorbido. Las curvas son una simulación con forma
 #   exponencial, no datos medidos minuto a minuto.
+#   Con los datos del archivo, la concentración de equilibrio es Ce = 57,42 mg/L
+#   y la cantidad adsorbida es 42,58 mg: el balance cierra, porque el plomo que
+#   sale de la solución (1 L x (100 - 57,42) mg/L) es el adsorbido.
 
 # Mostrar resultados en la consola  
 cat("Concentración de equilibrio de plomo en la solución:", round(Ce, 2), "mg/L\n")  
