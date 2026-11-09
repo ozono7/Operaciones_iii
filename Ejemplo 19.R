@@ -76,6 +76,7 @@ cat("   Rendimiento de cristalización con evaporación:", round(rendimiento_b, 
 #   disuelta, así que cristaliza un poco más y el rendimiento (en %) sube.
 # - La densidad (1,02 kg/L) convierte el volumen de solución en masa: sin
 #   ella no se puede pasar de litros a kilogramos.
-# - El rendimiento de este ejemplo se expresa sobre la masa de proteína
-#   inicial, no sobre la masa de solución.
+# - El rendimiento se expresa sobre la masa de soluto inicial: proteína
+#   cristalizada entre proteína inicial. Es la misma definición que en los
+#   Ejemplos 18 y 20, para que el rendimiento se compare entre ejercicios.
 

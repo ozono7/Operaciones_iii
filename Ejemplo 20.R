@@ -74,6 +74,7 @@ cat("   Rendimiento de cristalización con evaporación:", round(rendimiento_b, 
 #   así que cristaliza más y el rendimiento (en %) sube.
 # - La densidad (1,15 kg/L) convierte el volumen de solución en masa: sin
 #   ella no se puede pasar de litros a kilogramos.
-# - El rendimiento de este ejemplo se expresa sobre la masa de Na₂SO₄
-#   inicial, no sobre la masa de solución.
+# - El rendimiento se expresa sobre la masa de soluto inicial: Na₂SO₄
+#   cristalizado entre Na₂SO₄ inicial. Es la misma definición que en los
+#   Ejemplos 18 y 19, para que el rendimiento se compare entre ejercicios.
 

@@ -19,13 +19,24 @@ library(ggplot2)
 # Datos del problema  
 L <- 25  # Longitud de la columna (cm)  
 d <- 1  # Diámetro de la columna (cm)  
-V_s <- 10  # Volumen de la fase estacionaria (mL)  
-V_m <- 40  # Volumen de la fase móvil (mL)  
+
+# Volúmenes de las fases: el volumen geométrico de la columna es
+# V_columna = pi * (d/2)^2 * L = 19,63 mL, y las dos fases tienen que caber
+# en él: V_m + V_s = V_columna. Los valores del archivo (40 mL y 10 mL)
+# sumaban 50 mL, más que la columna. Se conservan su relación de fases
+# (V_m / V_s = 40 / 10 = 4) y se escalan a la columna: V_m = 15,71 mL y
+# V_s = 3,93 mL. La porosidad total es V_m / V_columna = 0,80.
+V_columna <- pi * (d / 2)^2 * L  # Volumen geométrico de la columna (mL)
+V_m <- V_columna * 4 / 5  # Volumen de la fase móvil (mL)
+V_s <- V_columna * 1 / 5  # Volumen de la fase estacionaria (mL)
 
 # Tiempo muerto de la columna: lo que tarda en salir un compuesto no retenido.
 # Es un dato del problema (1 min): no se puede deducir de V_m, porque para
-# eso haría falta el caudal de fase móvil, que el archivo no indica.
+# eso haría falta el caudal de fase móvil, que el archivo no indica. Por la
+# relación estándar t_M = V_m / F, ese dato equivale a un caudal
+# F = V_m / t_M = 15,71 mL/min.
 t_M <- 1  # Tiempo muerto (min)
+caudal <- V_m / t_M  # Caudal de fase móvil que corresponde a t_M (mL/min)
 
 # Tiempos de retención y anchos de pico  
 t_R_A <- 10  # Tiempo de retención de la proteína A (min)  
@@ -51,6 +62,10 @@ HETP_A <- L / N_A  # HETP para la proteína A
 HETP_B <- L / N_B  # HETP para la proteína B  
 
 # Mostrar resultados en la consola  
+cat("Volumen geométrico de la columna:", round(V_columna, 2), "mL\n")
+cat("Volumen de la fase móvil (V_m):", round(V_m, 2), "mL\n")
+cat("Volumen de la fase estacionaria (V_s):", round(V_s, 2), "mL\n")
+cat("Caudal de fase móvil (V_m / t_M):", round(caudal, 2), "mL/min\n\n")
 cat("Factor de retención (k) para la proteína A:", round(k_A, 2), "\n")  
 cat("Factor de retención (k) para la proteína B:", round(k_B, 2), "\n\n")  
 
@@ -119,6 +134,10 @@ ggsave("ejemplo_22_cromatografia.png", plot = p, width = 8, height = 6, dpi = 30
 # - El número de platos teóricos N (adimensional) y la altura equivalente HETP
 #   (en cm) miden la eficiencia de la columna: más platos y menor HETP
 #   significan picos más estrechos y mejor separación.
+# - Los volúmenes de las fases caben en la columna: V_m + V_s = V_columna
+#   (volumen geométrico pi por (d/2)^2 por L). El tiempo muerto es
+#   t_M = V_m / F: como el archivo no da el caudal, t_M = 1 min es un dato
+#   del problema y el caudal que le corresponde es V_m / t_M = 15,71 mL/min.
 # - La intensidad del eje Y es un valor relativo sin unidad especificada en el
 #   archivo: sirve para comparar los picos, no es una concentración medida.
 

@@ -31,7 +31,16 @@ isoterma_langmuir <- function(C, q_max, K) {
   return(q)  
 }  
 
-# Función para calcular la extracción en cada etapa  
+# Función para calcular la extracción en cada etapa
+# La isoterma da q, el aceite RETENIDO por kg de inertes en equilibrio con
+# la concentración C del líquido (Langmuir, 1916: q_e es la cantidad
+# adsorbida por unidad de masa de adsorbente). El balance de cada etapa es:
+#   aceite que entra = aceite en el extracto + aceite retenido
+#   O_in = C * S + q(C) * M,
+# con S la masa de benceno y M la masa de inertes. De ahí sale C (el balance
+# es una ecuación cuadrática en C), el aceite extraído es C * S y el
+# retenido es q * M; el sólido, con el aceite retenido, pasa a la etapa
+# siguiente.
 calcular_extraccion <- function(masa_harina, concentracion_aceite, relacion_solvente_solido, q_max, K, etapas) {  
   masa_aceite_inicial <- masa_harina * concentracion_aceite  # Masa inicial de aceite (kg)  
   masa_inertes <- masa_harina * concentracion_inertes  # Masa de sólidos inertes (kg)  
@@ -39,36 +48,57 @@ calcular_extraccion <- function(masa_harina, concentracion_aceite, relacion_solv
   
   # Inicializar vectores para almacenar los resultados  
   aceite_extraido <- numeric(etapas)  
+  aceite_retenido <- numeric(etapas)  
   aceite_restante <- numeric(etapas + 1)  # +1 para almacenar el valor inicial  
+  concentracion <- numeric(etapas)  
+  q_equilibrio <- numeric(etapas)  
   eficiencia <- numeric(etapas)  
   
   # Condiciones iniciales  
   aceite_restante[1] <- masa_aceite_inicial  
   
   for (i in 1:etapas) {  
-    # Concentración de aceite en la fase líquida (kg de aceite/kg de benceno)
-    C <- aceite_restante[i] / masa_benceno  
-    
-    # Cantidad de aceite adsorbido por kg de inertes (kg/kg)  
-    q <- isoterma_langmuir(C, q_max, K)  
-    
-    # Cantidad de aceite extraído en la etapa actual (kg)  
-    aceite_extraido[i] <- q * masa_inertes  
-    
-    # Actualizar la cantidad de aceite restante (kg)  
-    aceite_restante[i + 1] <- aceite_restante[i] - aceite_extraido[i]  
-    
-    # Eficiencia de extracción en la etapa actual (%)  
+    # Aceite que entra a la etapa: el que quedó retenido en el sólido
+    aceite_entrada <- aceite_restante[i]
+
+    # Resolver el balance O_in = C * S + q(C) * M para C. Con la isoterma
+    # de Langmuir el balance es una ecuación cuadrática en C:
+    #   (K*S) * C^2 + (S + M*q_max*K - O_in*K) * C - O_in = 0
+    coef2 <- K * masa_benceno
+    coef1 <- masa_benceno + masa_inertes * q_max * K - aceite_entrada * K
+    coef0 <- -aceite_entrada
+    C <- (-coef1 + sqrt(coef1^2 - 4 * coef2 * coef0)) / (2 * coef2)  # Concentración de aceite en la fase líquida (kg/kg)
+
+    # Cantidad de aceite retenido por kg de inertes en equilibrio con C (kg/kg)
+    q <- isoterma_langmuir(C, q_max, K)
+
+    # Aceite en el extracto (disuelto en el benceno) y aceite retenido en
+    # el sólido (kg)
+    aceite_extraido[i] <- C * masa_benceno
+    aceite_retenido[i] <- q * masa_inertes
+
+    concentracion[i] <- C
+    q_equilibrio[i] <- q
+
+    # El sólido, con el aceite retenido, pasa a la etapa siguiente
+    aceite_restante[i + 1] <- aceite_retenido[i]
+
+    # Eficiencia de extracción en la etapa actual (% del aceite inicial)
     eficiencia[i] <- (aceite_extraido[i] / masa_aceite_inicial) * 100  
   }  
   
-  return(list(aceite_extraido = aceite_extraido, aceite_restante = aceite_restante, eficiencia = eficiencia))  
+  return(list(aceite_extraido = aceite_extraido, aceite_retenido = aceite_retenido,
+              aceite_restante = aceite_restante, concentracion = concentracion,
+              q_equilibrio = q_equilibrio, eficiencia = eficiencia))  
 }  
 
 # Aplicar la función  
 resultados <- calcular_extraccion(masa_harina, concentracion_aceite, relacion_solvente_solido, q_max, K, etapas)  
 aceite_extraido <- resultados$aceite_extraido  
+aceite_retenido <- resultados$aceite_retenido  
 aceite_restante <- resultados$aceite_restante  
+concentracion <- resultados$concentracion  
+q_equilibrio <- resultados$q_equilibrio  
 eficiencia <- resultados$eficiencia  
 
 # Crear un data frame para graficar la isoterma de sorción  
@@ -101,7 +131,7 @@ ggsave("ejemplo_16_isoterma.png", plot = p_isoterma, width = 8, height = 6, dpi 
 # - Eje X: Concentración de aceite en la fase líquida, en kilogramos de aceite
 #   por kilogramo de benceno (kg/kg). Va de 0 a 1 kg/kg: es la masa de aceite
 #   por cada kilogramo de benceno, no por litro, porque el archivo calcula
-#   C como aceite restante entre masa de benceno.
+#   C como aceite disuelto entre masa de benceno.
 # - Eje Y: Cantidad de aceite adsorbido, en kilogramos de aceite por kilogramo
 #   de sólido (kg/kg). Indica cuánto aceite retiene cada kilogramo de inertes.
 # - Lo que se aprecia: la curva sube con pendiente fuerte al principio y luego
@@ -142,16 +172,23 @@ ggsave("ejemplo_16_extraccion_etapas.png", plot = p_extraccion, width = 8, heigh
 #   unidades físicas, solo indica la primera, segunda o tercera etapa.
 # - Eje Y: Aceite extraído en esa etapa, en kilogramos (kg).
 # - Lo que se aprecia: los puntos unidos por la línea muestran cuánto aceite
-#   se extrae en cada etapa. Como en cada etapa queda menos aceite en la harina,
-#   la cantidad extraída por etapa va disminuyendo.
+#   se extrae en cada etapa: 14,83 kg en la primera, 3,73 kg en la segunda
+#   y 1,03 kg en la tercera. La cantidad extraída por etapa va disminuyendo.
 # - Qué significa: las primeras etapas son las más productivas y las siguientes
 #   aportan cada vez menos; por eso hay que valorar si una etapa más compensa
-#   el benceno y el tiempo que consume. La eficiencia de cada etapa (en %) y la
-#   eficiencia global se imprimen en la consola.
+#   el benceno y el tiempo que consume. En total se extraen 19,59 kg de los
+#   20 kg iniciales (eficiencia global 98 %); en el sólido quedan retenidos
+#   0,41 kg. La eficiencia de cada etapa (en %) se imprime en la consola.
 
 # Mostrar resultados en la consola  
 cat("Cantidad de aceite extraído en cada etapa (kg):\n")  
 print(aceite_extraido)  
+cat("\nAceite retenido en el sólido en cada etapa (kg):\n")  
+print(aceite_retenido)  
+cat("\nConcentración de equilibrio en el líquido en cada etapa (kg/kg):\n")  
+print(concentracion)  
+cat("\nAceite retenido por kg de inertes en cada etapa (kg/kg):\n")  
+print(q_equilibrio)  
 cat("\nEficiencia de extracción en cada etapa (%):\n")  
 print(eficiencia)  
 cat("\nEficiencia global de extracción después de", etapas, "etapas:", round(sum(eficiencia)), "%\n")  
@@ -162,6 +199,13 @@ cat("\nEficiencia global de extracción después de", etapas, "etapas:", round(s
 # - La isoterma de Langmuir tiene forma de curva que se aplana: la cantidad
 #   adsorbida crece con la concentración hasta llegar a una capacidad máxima
 #   (qmax, en kg/kg).
+# - En la isoterma, q es el aceite RETENIDO por kg de sólido en equilibrio
+#   con la concentración C del líquido (Langmuir, 1916), no el aceite
+#   extraído: el extraído es el que queda disuelto en el benceno, C por la
+#   masa de benceno.
+# - El balance de cada etapa es: aceite que entra = aceite en el extracto
+#   (C por la masa de benceno) + aceite retenido (q por la masa de inertes).
+#   El sólido, con el aceite retenido, pasa a la etapa siguiente.
 # - En una extracción por etapas, cada etapa extrae menos que la anterior porque
 #   queda menos soluto por extraer; la eficiencia global es la suma de las
 #   eficiencias de cada etapa (en %).
