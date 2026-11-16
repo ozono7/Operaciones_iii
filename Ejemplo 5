@@ -84,4 +84,39 @@ ggplot() +
   theme_minimal() +
   theme(legend.position = "right")
 
+# --------------------------------------------------------------------------
+# Interpretación
+# --------------------------------------------------------------------------
+# El gráfico es la carta psicrométrica del aire húmedo a presión
+# atmosférica (101325 Pa), construida con los datos calculados arriba.
+# El eje horizontal es la temperatura de bulbo seco (TBS), en grados
+# Celsius (°C), de -10 a 50 °C. El eje vertical es la humedad absoluta,
+# en gramos de agua por kilogramo de aire seco (g/kg), es decir, cuánta
+# agua lleva cada kilogramo de aire seco.
+# Las líneas de colores son las curvas de humedad relativa (HR) constante,
+# de 10 a 100 %: a una TBS fija, subir de curva significa que el aire lleva
+# más agua. La curva azul es la de saturación (HR = 100 %): es el límite
+# superior, por encima de ella el vapor de agua ya no cabe como vapor y
+# condensaría. Las líneas rojas punteadas son de entalpía constante
+# (de 10 a 120 kJ/kg) y las verdes punteadas son de temperatura de bulbo
+# húmedo (TBH) constante (de 0 a 40 °C).
+# El patrón que se aprecia es que la humedad que el aire puede contener
+# crece con la temperatura: la curva de saturación sube cada vez más
+# empinada al aumentar la TBS, así que el aire caliente admite mucha más
+# agua que el aire frío antes de saturarse.
 
+# --------------------------------------------------------------------------
+# Qué aprendimos
+# --------------------------------------------------------------------------
+# - La carta psicrométrica resume en un solo gráfico las propiedades del
+#   aire húmedo: con la temperatura de bulbo seco (°C) y una propiedad más
+#   (humedad relativa, entalpía o temperatura de bulbo húmedo) se leen las
+#   demás.
+# - La humedad absoluta se expresa en gramos de agua por kilogramo de aire
+#   seco (g/kg): es una relación de masas, por eso se calcula a partir de
+#   la humedad relativa y la temperatura con la presión atmosférica fija.
+# - La curva de saturación (HR = 100 %) es el límite superior de la carta:
+#   ningún punto por encima de ella corresponde a aire húmedo sin condensar.
+# - La entalpía (kJ/kg) y la temperatura de bulbo húmedo (°C) son otras dos
+#   formas de ubicar un estado del aire en la carta, útiles en cálculos de
+#   acondicionamiento de aire y secado.
